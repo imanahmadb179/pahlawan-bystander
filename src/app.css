@@ -37,7 +37,12 @@ body {
   height: 100vh;
   width: 100vw;
   overflow: hidden;
-  background-image: url('/landscape.webp');
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+  background-image: url('./assets/landscape.webp');
   background-size: cover;
   background-position: center bottom;
   background-repeat: no-repeat;
@@ -45,7 +50,7 @@ body {
 
 @media (max-width: 768px), (orientation: portrait) {
   body {
-    background-image: url('/portrait.webp');
+    background-image: url('./assets/portrait.webp');
   }
 }
 
