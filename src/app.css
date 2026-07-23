@@ -1,0 +1,146 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap');
+
+:root {
+  --bg-color: #f0fdf4;
+  --surface-color: #ffffff;
+  --surface-highlight: #f8fafc;
+  --text-primary: #1e293b;
+  --text-secondary: #475569;
+  
+  --primary-blue: #3b82f6;
+  --primary-blue-dark: #2563eb;
+  --primary-blue-light: #dbeafe;
+  
+  --success-color: #22c55e;
+  --success-hover: #16a34a;
+  
+  --warning-color: #f59e0b;
+  --danger-color: #ef4444;
+
+  --border-radius: 24px;
+  --glass-bg: rgba(255, 255, 255, 0.9);
+  --glass-border: rgba(255, 255, 255, 1);
+  --shadow-bubbly: 0 8px 0 rgba(0,0,0,0.1), 0 15px 20px rgba(0,0,0,0.1);
+  --shadow-inset: inset 0 -4px 0 rgba(0,0,0,0.15);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Fredoka', sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  background-image: url('/landscape.webp');
+  background-size: cover;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+}
+
+@media (max-width: 768px), (orientation: portrait) {
+  body {
+    background-image: url('/portrait.webp');
+  }
+}
+
+#app {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+p {
+  line-height: 1.6;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  outline: none;
+  transition: all 0.1s ease;
+}
+
+.bubbly-panel {
+  background: var(--glass-bg);
+  border: 4px solid var(--primary-blue);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-bubbly);
+  padding: 1.5rem;
+}
+
+.btn-bubbly {
+  background-color: var(--success-color);
+  color: white;
+  padding: 1rem 1.5rem;
+  border-radius: 20px;
+  border: 4px solid #166534;
+  font-weight: 700;
+  font-size: 1.1rem;
+  box-shadow: inset 0 -4px 0 rgba(0,0,0,0.2), 0 4px 0 rgba(0,0,0,0.2);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.btn-bubbly:hover {
+  background-color: var(--success-hover);
+  transform: translateY(2px);
+  box-shadow: inset 0 -2px 0 rgba(0,0,0,0.2), 0 2px 0 rgba(0,0,0,0.2);
+}
+
+.btn-bubbly:active {
+  transform: translateY(4px);
+  box-shadow: inset 0 0 0 rgba(0,0,0,0.2), 0 0 0 rgba(0,0,0,0.2);
+}
+
+.fade-in {
+  animation: fadeIn 0.4s ease-out forwards;
+}
+
+.slide-up {
+  animation: slideUp 0.5s ease-out forwards;
+}
+
+.pop-in {
+  animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes popIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
