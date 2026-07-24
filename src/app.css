@@ -50,7 +50,7 @@ body {
 
 @media (max-width: 768px), (orientation: portrait) {
   body {
-    background-image: url('./assets/portrait.webp');
+    background-image: url('./assets/bagian-soal.webp');
   }
 }
 

@@ -1,5 +1,6 @@
 <script>
   export let currentStage = 1;
+  export let isNarrative = false;
   
   const steps = [
     { num: 1, title: 'Cek Respon', icon: '👤' },
@@ -17,7 +18,7 @@
   
   <div class="sidebar-content">
     {#each steps as step}
-      <div class="step-item {currentStage === step.num ? 'active' : ''} {currentStage > step.num ? 'completed' : ''}">
+      <div class="step-item {currentStage === step.num && !isNarrative ? 'active' : ''} {currentStage > step.num ? 'completed' : ''}">
         <div class="step-icon">
           {step.icon}
         </div>

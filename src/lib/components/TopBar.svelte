@@ -2,6 +2,7 @@
   export let score = 100;
   export let step = 1;
   export let totalSteps = 5;
+  export let isNarrative = false;
   
   $: width = Math.max(0, score) + '%';
 </script>
@@ -26,7 +27,13 @@
 
   <!-- Langkah -->
   <div class="step-widget">
-    <div class="step-title">Langkah: {step} dari {totalSteps}</div>
+    <div class="step-title">
+      {#if isNarrative}
+        Tahap: Cerita / Narasi
+      {:else}
+        Langkah: {step} dari {totalSteps}
+      {/if}
+    </div>
   </div>
 </div>
 

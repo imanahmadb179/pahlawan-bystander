@@ -7,17 +7,20 @@
   import ResultScreen from './lib/components/ResultScreen.svelte';
   import WelcomeScreen from './lib/components/WelcomeScreen.svelte';
   import IntroScreen from './lib/components/IntroScreen.svelte';
+  import NarrativeScreen from './lib/components/NarrativeScreen.svelte';
 
   let showWelcome = true;
   let gameStarted = false;
   let currentStageIndex = 0;
   let score = 100;
   let selectedOption = null;
+  let narrativeRead = false;
   
   $: isGameOver = score <= 0;
   $: hasWon = !isGameOver && currentStageIndex >= gameData.length;
   $: showResult = isGameOver || hasWon;
   $: currentStageNum = currentStageIndex + 1;
+  $: isNarrativeActive = !!(gameData[currentStageIndex]?.narrative && !narrativeRead);
   
   function handleWelcomeStart() {
     showWelcome = false;
@@ -38,12 +41,12 @@
     const currentData = gameData[currentStageIndex];
     const correctOption = currentData.options.find(o => o.points === 0);
     
-    score -= 25;
+    score -= 20;
     if (score < 0) score = 0;
     
     selectedOption = {
       isTimeout: true,
-      points: -25,
+      points: -20,
       explanation: "WAKTU HABIS! Dalam keadaan darurat, setiap detik sangat berharga.\n\nTindakan yang paling tepat seharusnya adalah:\n\"" + correctOption.text + "\"\n\n" + correctOption.explanation
     };
   }
@@ -51,6 +54,7 @@
   function handleNext() {
     selectedOption = null;
     currentStageIndex++;
+    narrativeRead = false;
   }
   
   function handleRestart() {
@@ -59,6 +63,7 @@
     selectedOption = null;
     gameStarted = false;
     showWelcome = true;
+    narrativeRead = false;
   }
 </script>
 
@@ -84,17 +89,25 @@
   {:else if !showResult}
     <!-- UI Overlay Layer -->
     <div class="ui-layer">
-      <TopBar {score} step={currentStageNum} totalSteps={gameData.length} />
+      <TopBar {score} step={currentStageNum} totalSteps={gameData.length} isNarrative={isNarrativeActive} />
       
       <div class="main-content">
-        <Sidebar currentStage={currentStageNum} />
+        <Sidebar currentStage={currentStageNum} isNarrative={isNarrativeActive} />
         
         <div class="game-area">
-          <GameScreen 
-            stageData={gameData[currentStageIndex]} 
-            on:select={handleSelect} 
-            on:timeout={handleTimeout}
-          />
+          {#if isNarrativeActive}
+            <NarrativeScreen 
+              title={gameData[currentStageIndex].title}
+              narrative={gameData[currentStageIndex].narrative} 
+              on:continue={() => narrativeRead = true}
+            />
+          {:else}
+            <GameScreen 
+              stageData={gameData[currentStageIndex]} 
+              on:select={handleSelect} 
+              on:timeout={handleTimeout}
+            />
+          {/if}
         </div>
       </div>
     </div>
