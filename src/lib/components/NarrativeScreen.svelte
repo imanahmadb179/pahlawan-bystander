@@ -1,5 +1,6 @@
 <script>
   import { createEventDispatcher, onMount, onDestroy } from 'svelte';
+  import { playNarrativeSound } from '../soundEffects.js';
   
   export let title = '';
   export let narrative = '';
@@ -12,6 +13,7 @@
   let typeInterval;
   
   onMount(() => {
+    playNarrativeSound();
     paragraphs = narrative.split("\n\n");
     displayTexts = paragraphs.map(() => "");
     

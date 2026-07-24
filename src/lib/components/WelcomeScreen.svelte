@@ -1,7 +1,12 @@
 <script>
-  import { createEventDispatcher } from 'svelte';
+  import { createEventDispatcher, onMount } from 'svelte';
+  import { playWelcomeSound } from '../soundEffects.js';
   
   const dispatch = createEventDispatcher();
+  
+  onMount(() => {
+    playWelcomeSound();
+  });
 </script>
 
 <div class="welcome-layout fade-in">

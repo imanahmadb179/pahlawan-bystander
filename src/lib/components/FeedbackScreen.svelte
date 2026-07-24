@@ -1,5 +1,6 @@
 <script>
-  import { createEventDispatcher } from 'svelte';
+  import { createEventDispatcher, onMount } from 'svelte';
+  import { playCorrectSound, playWarningSound, playWrongSound, playTimeoutSound } from '../soundEffects.js';
   
   export let selectedOption;
   
@@ -13,6 +14,18 @@
   $: iconClass = isTimeout ? '⌛' : isCorrect ? '🌟' : isLessCorrect ? '⚠️' : '❌';
   $: title = isTimeout ? 'WAKTU HABIS!' : isCorrect ? 'BAGUS SEKALI!' : isLessCorrect ? 'HAMPIR TEPAT!' : 'AWAS KELIRU!';
   
+  onMount(() => {
+    if (isTimeout) {
+      playTimeoutSound();
+    } else if (isCorrect) {
+      playCorrectSound();
+    } else if (isLessCorrect) {
+      playWarningSound();
+    } else {
+      playWrongSound();
+    }
+  });
+
   function handleNext() {
     dispatch('next');
   }

@@ -1,5 +1,6 @@
 <script>
   import { createEventDispatcher, onMount, onDestroy } from "svelte";
+  import { playTickSound } from '../soundEffects.js';
 
   export let stageData;
 
@@ -35,6 +36,12 @@
     
     timerInterval = setInterval(() => {
       timeLeft -= 1;
+      
+      // Play tick sound if time is above 0, or maybe even at 0.
+      if (timeLeft > 0) {
+        playTickSound();
+      }
+      
       if (timeLeft <= 0) {
         clearInterval(timerInterval);
         handleTimeout();

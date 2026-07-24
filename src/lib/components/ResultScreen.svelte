@@ -1,11 +1,20 @@
 <script>
-  import { createEventDispatcher } from 'svelte';
+  import { createEventDispatcher, onMount } from 'svelte';
+  import { playWinSound, playLoseSound } from '../soundEffects.js';
   
   export let score;
   export let isWin;
   
   const dispatch = createEventDispatcher();
   
+  onMount(() => {
+    if (isWin) {
+      playWinSound();
+    } else {
+      playLoseSound();
+    }
+  });
+
   function handleRestart() {
     dispatch('restart');
   }

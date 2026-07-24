@@ -1,5 +1,6 @@
 <script>
   import { onMount, createEventDispatcher } from "svelte";
+  import { playIntroSound } from '../soundEffects.js';
 
   const dispatch = createEventDispatcher();
 
@@ -18,6 +19,7 @@
   let typeInterval;
 
   onMount(() => {
+    playIntroSound();
     startScene1();
   });
 
