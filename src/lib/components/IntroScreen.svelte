@@ -1,6 +1,6 @@
 <script>
   import { onMount, createEventDispatcher } from "svelte";
-  import { playIntroSound } from '../soundEffects.js';
+  import { playIntroSound, playTypingSound } from '../soundEffects.js';
 
   const dispatch = createEventDispatcher();
 
@@ -29,13 +29,19 @@
     showNextButton = false;
     let i = 0;
     typeInterval = setInterval(() => {
-      p1Display += p1Text.charAt(i);
+      let char = p1Text.charAt(i);
+      p1Display += char;
+      
+      if (char !== ' ' && char !== '\n') {
+        playTypingSound();
+      }
+      
       i++;
       if (i >= p1Text.length) {
         clearInterval(typeInterval);
         showNextButton = true;
       }
-    }, 25);
+    }, 60);
   }
 
   function startScene2() {
@@ -62,13 +68,19 @@
     p2Display = "";
     let i = 0;
     typeInterval = setInterval(() => {
-      p2Display += p2Text.charAt(i);
+      let char = p2Text.charAt(i);
+      p2Display += char;
+      
+      if (char !== ' ' && char !== '\n') {
+        playTypingSound();
+      }
+      
       i++;
       if (i >= p2Text.length) {
         clearInterval(typeInterval);
         showStartButton = true;
       }
-    }, 25);
+    }, 60);
   }
 
   function handleNext() {

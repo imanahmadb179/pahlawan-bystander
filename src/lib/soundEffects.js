@@ -90,3 +90,36 @@ export function playNarrativeSound() {
 export function playTickSound() {
   playTone(880.00, 'square', 0, 0.05, 0.02); // High short tick (A5)
 }
+
+export function playTypingSound() {
+  const ctx = getAudioContext();
+  
+  // Create a very short buffer of white noise (50ms)
+  const bufferSize = ctx.sampleRate * 0.05; 
+  const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+  const data = buffer.getChannelData(0);
+  for (let i = 0; i < bufferSize; i++) {
+    data[i] = Math.random() * 2 - 1;
+  }
+  
+  const noise = ctx.createBufferSource();
+  noise.buffer = buffer;
+  
+  // Use a bandpass filter to shape the noise into a "clack" sound
+  const filter = ctx.createBiquadFilter();
+  filter.type = 'bandpass';
+  // Slightly randomize the frequency so each key sounds a bit different
+  filter.frequency.value = 700 + Math.random() * 300; 
+  filter.Q.value = 1.2;
+  
+  const gainNode = ctx.createGain();
+  // Quick decay for the click
+  gainNode.gain.setValueAtTime(0.4, ctx.currentTime);
+  gainNode.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.04);
+  
+  noise.connect(filter);
+  filter.connect(gainNode);
+  gainNode.connect(ctx.destination);
+  
+  noise.start(ctx.currentTime);
+}

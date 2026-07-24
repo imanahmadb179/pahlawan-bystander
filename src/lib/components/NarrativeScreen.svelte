@@ -1,6 +1,6 @@
 <script>
   import { createEventDispatcher, onMount, onDestroy } from 'svelte';
-  import { playNarrativeSound } from '../soundEffects.js';
+  import { playNarrativeSound, playTypingSound } from '../soundEffects.js';
   
   export let title = '';
   export let narrative = '';
@@ -28,7 +28,13 @@
       }
       
       let currentText = paragraphs[pIndex];
-      displayTexts[pIndex] += currentText.charAt(cIndex);
+      let char = currentText.charAt(cIndex);
+      displayTexts[pIndex] += char;
+      
+      if (char !== ' ' && char !== '\n') {
+        playTypingSound();
+      }
+      
       cIndex++;
       
       if (cIndex >= currentText.length) {
@@ -37,7 +43,7 @@
       }
       
       displayTexts = displayTexts;
-    }, 15);
+    }, 60);
   });
   
   onDestroy(() => {

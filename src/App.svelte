@@ -1,4 +1,5 @@
 <script>
+  import { onMount } from 'svelte';
   import { gameData } from './lib/gameData.js';
   import TopBar from './lib/components/TopBar.svelte';
   import Sidebar from './lib/components/Sidebar.svelte';
@@ -13,8 +14,39 @@
   let gameStarted = false;
   let currentStageIndex = 0;
   let score = 100;
+  /** @type {any} */
   let selectedOption = null;
   let narrativeRead = false;
+  
+  let isPreloading = true;
+  let preloadProgress = 0;
+
+  const imageModules = import.meta.glob('./assets/*.{webp,png,svg}', { eager: true });
+  const allImages = Object.values(imageModules).map(module => module.default || module);
+
+  onMount(() => {
+    let loadedCount = 0;
+    const totalImages = allImages.length;
+    
+    if (totalImages === 0) {
+      isPreloading = false;
+      return;
+    }
+
+    allImages.forEach(src => {
+      const img = new Image();
+      img.src = src;
+      img.onload = img.onerror = () => {
+        loadedCount++;
+        preloadProgress = Math.round((loadedCount / totalImages) * 100);
+        if (loadedCount === totalImages) {
+          setTimeout(() => {
+            isPreloading = false;
+          }, 500); // slight delay for smooth transition
+        }
+      };
+    });
+  });
   
   $: isGameOver = score <= 0;
   $: hasWon = !isGameOver && currentStageIndex >= gameData.length;
@@ -30,6 +62,7 @@
     gameStarted = true;
   }
 
+  /** @param {CustomEvent} event */
   function handleSelect(event) {
     const option = event.detail;
     selectedOption = option;
@@ -67,7 +100,23 @@
   }
 </script>
 
-<div class="game-wrapper">
+{#if isPreloading}
+  <div class="preload-layer fade-in">
+    <div class="loader-container">
+      <div class="heartbeat-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+      </div>
+      <h2>Pahlawan Bystander</h2>
+      <p class="loading-subtitle">Memuat aset permainan... {preloadProgress}%</p>
+      <div class="progress-wrapper">
+        <div class="progress-bar-bg">
+          <div class="progress-bar-fill" style="width: {preloadProgress}%"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+{:else}
+<div class="game-wrapper fade-in">
   
   {#if showWelcome}
     <div class="ui-layer">
@@ -130,8 +179,114 @@
     </div>
   {/if}
 </div>
+{/if}
 
 <style>
+  .preload-layer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(135deg, var(--primary-blue-light) 0%, #d1fae5 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  }
+
+  .loader-container {
+    background: var(--glass-bg);
+    padding: 3rem 2.5rem;
+    border-radius: var(--border-radius);
+    border: 4px solid white;
+    box-shadow: var(--shadow-bubbly);
+    text-align: center;
+    max-width: 420px;
+    width: 90%;
+    backdrop-filter: blur(10px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation: float 4s ease-in-out infinite;
+  }
+
+  .heartbeat-icon {
+    width: 70px;
+    height: 70px;
+    background: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 4px solid var(--danger-color);
+    box-shadow: 0 8px 0 rgba(239, 68, 68, 0.2), 0 15px 20px rgba(0,0,0,0.1);
+    color: var(--danger-color);
+    margin-bottom: 1.5rem;
+    animation: heartbeat 1.2s ease-in-out infinite;
+  }
+
+  .heartbeat-icon svg {
+    width: 35px;
+    height: 35px;
+    fill: var(--danger-color);
+  }
+
+  .loader-container h2 {
+    color: var(--primary-blue-dark);
+    margin-bottom: 0.5rem;
+    font-size: 1.8rem;
+    font-weight: 800;
+  }
+
+  .loading-subtitle {
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+    font-weight: 600;
+    font-size: 1.1rem;
+  }
+
+  .progress-wrapper {
+    width: 100%;
+    padding: 4px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+    border: 2px solid var(--primary-blue-light);
+  }
+
+  .progress-bar-bg {
+    width: 100%;
+    height: 16px;
+    background: transparent;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary-blue), #60a5fa);
+    border-radius: 12px;
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: inset 0 -4px 0 rgba(0,0,0,0.15);
+  }
+
+  @keyframes heartbeat {
+    0% { transform: scale(1); }
+    15% { transform: scale(1.15); }
+    30% { transform: scale(1); }
+    45% { transform: scale(1.15); }
+    60% { transform: scale(1); }
+    100% { transform: scale(1); }
+  }
+
+  @keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+  }
+
   .game-wrapper {
     position: relative;
     width: 100vw;
