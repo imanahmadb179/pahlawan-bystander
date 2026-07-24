@@ -268,14 +268,14 @@
     }
 
     .dialogue-title {
-      font-size: 1.15rem;
-      margin-bottom: 0.5rem;
-      padding-bottom: 0.25rem;
+      font-size: 0.95rem;
+      margin-bottom: 0.25rem;
+      padding-bottom: 0.15rem;
     }
 
     .dialogue-text {
-      font-size: 1rem;
-      line-height: 1.4;
+      font-size: 0.8rem;
+      line-height: 1.35;
     }
     
     .action-container {
@@ -300,8 +300,8 @@
     }
 
     .btn-lanjut .option-text {
-      font-size: 1.4rem !important;
-      font-weight: 900;
+      font-size: 1.1rem !important;
+      font-weight: 800;
     }
 
     .btn-lanjut .btn-icon {

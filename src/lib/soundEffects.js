@@ -94,8 +94,8 @@ export function playTickSound() {
 export function playTypingSound() {
   const ctx = getAudioContext();
   
-  // Create a very short buffer of white noise (50ms)
-  const bufferSize = ctx.sampleRate * 0.05; 
+  // Component 1: Acoustic "Thud" using low bandpass-filtered noise
+  const bufferSize = ctx.sampleRate * 0.03; // 30ms 
   const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
   const data = buffer.getChannelData(0);
   for (let i = 0; i < bufferSize; i++) {
@@ -105,21 +105,53 @@ export function playTypingSound() {
   const noise = ctx.createBufferSource();
   noise.buffer = buffer;
   
-  // Use a bandpass filter to shape the noise into a "clack" sound
-  const filter = ctx.createBiquadFilter();
-  filter.type = 'bandpass';
-  // Slightly randomize the frequency so each key sounds a bit different
-  filter.frequency.value = 700 + Math.random() * 300; 
-  filter.Q.value = 1.2;
+  // Tuned to a low frequency (300-400Hz) to simulate thick plastic/wood resonance
+  const noiseFilter = ctx.createBiquadFilter();
+  noiseFilter.type = 'bandpass';
+  noiseFilter.frequency.value = 350 + Math.random() * 50; 
+  noiseFilter.Q.value = 1.0; 
   
+  const noiseGain = ctx.createGain();
+  noiseGain.gain.setValueAtTime(1.0, ctx.currentTime);
+  noiseGain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.03);
+  
+  noise.connect(noiseFilter);
+  noiseFilter.connect(noiseGain);
+  noiseGain.connect(ctx.destination);
+  noise.start(ctx.currentTime);
+  
+  // Component 2: Sub-bass weight (a deep sine thud)
+  const osc = ctx.createOscillator();
+  const oscGain = ctx.createGain();
+  osc.type = 'sine'; // Sine is smoother and more natural than triangle
+  osc.frequency.setValueAtTime(120, ctx.currentTime);
+  osc.frequency.exponentialRampToValueAtTime(50, ctx.currentTime + 0.02);
+  
+  oscGain.gain.setValueAtTime(0.5, ctx.currentTime);
+  oscGain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.03);
+  
+  osc.connect(oscGain);
+  oscGain.connect(ctx.destination);
+  osc.start(ctx.currentTime);
+  osc.stop(ctx.currentTime + 0.04);
+}
+
+export function playPopSound() {
+  const ctx = getAudioContext();
+  const oscillator = ctx.createOscillator();
   const gainNode = ctx.createGain();
-  // Quick decay for the click
-  gainNode.gain.setValueAtTime(0.4, ctx.currentTime);
-  gainNode.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.04);
   
-  noise.connect(filter);
-  filter.connect(gainNode);
+  // A quick sine wave sweep from low to high frequency creates a "bloop/pop" sound
+  oscillator.type = 'sine';
+  oscillator.frequency.setValueAtTime(300, ctx.currentTime);
+  oscillator.frequency.exponentialRampToValueAtTime(800, ctx.currentTime + 0.1);
+  
+  gainNode.gain.setValueAtTime(0.3, ctx.currentTime);
+  gainNode.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.1);
+  
+  oscillator.connect(gainNode);
   gainNode.connect(ctx.destination);
   
-  noise.start(ctx.currentTime);
+  oscillator.start(ctx.currentTime);
+  oscillator.stop(ctx.currentTime + 0.15);
 }

@@ -1,6 +1,6 @@
 <script>
   import { onMount, createEventDispatcher } from "svelte";
-  import { playIntroSound, playTypingSound } from '../soundEffects.js';
+  import { playIntroSound, playTypingSound, playPopSound } from '../soundEffects.js';
 
   const dispatch = createEventDispatcher();
 
@@ -53,6 +53,7 @@
 
   function showNextScore() {
     scoreSteps++;
+    playPopSound();
     if (scoreSteps < 4) {
       setTimeout(showNextScore, 400);
     } else {
@@ -451,7 +452,7 @@
     }
 
     .option-text {
-      font-size: 1.2rem !important;
+      font-size: 1rem !important;
     }
 
     .btn-play {
@@ -475,7 +476,7 @@
 
     .play-text {
       color: white;
-      font-size: 1.8rem;
+      font-size: 1.4rem;
       font-weight: 900;
       letter-spacing: 2px;
       text-shadow: 0 3px 0 #3f6212;
@@ -493,12 +494,12 @@
     }
 
     .dialogue-title {
-      font-size: 1rem;
+      font-size: 0.95rem;
       margin-bottom: 0.5rem;
     }
 
     .dialogue-text {
-      font-size: 0.95rem;
+      font-size: 0.8rem;
     }
 
     .rules-grid {
@@ -538,7 +539,7 @@
 
     .btn-lanjut .option-text {
       color: white;
-      font-size: 1.5rem !important;
+      font-size: 1.1rem !important;
       font-weight: 900;
       letter-spacing: 1px;
     }

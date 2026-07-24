@@ -346,5 +346,10 @@
     .game-area {
       padding-top: 1rem;
     }
+
+    .ui-layer, .result-layer {
+      padding-bottom: 2.5rem;
+      box-sizing: border-box;
+    }
   }
 </style>
