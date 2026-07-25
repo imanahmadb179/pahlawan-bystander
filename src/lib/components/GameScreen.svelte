@@ -6,7 +6,7 @@
 
   const dispatch = createEventDispatcher();
 
-  let timeLeft = 15;
+  let timeLeft = 30;
   let timerInterval;
   let isRevealing = false;
   let selectedIndex = null;
@@ -17,16 +17,28 @@
   let effectType = '';
 
   let animateKey = stageData.stage;
+  let shuffledOptions = [];
+
+  function initStage() {
+    if (!stageData.options[0].originalId) {
+      stageData.options.forEach((opt, idx) => {
+        opt.originalId = String.fromCharCode(97 + idx); // 'a', 'b', 'c'
+      });
+    }
+    shuffledOptions = [...stageData.options].sort(() => Math.random() - 0.5);
+    resetTimer();
+  }
+
   $: {
     if (animateKey !== stageData.stage) {
       animateKey = stageData.stage;
-      resetTimer();
+      initStage();
     }
   }
 
   function resetTimer() {
     if (timerInterval) clearInterval(timerInterval);
-    timeLeft = 15;
+    timeLeft = 30;
     isRevealing = false;
     isBgAnimating = false;
     bgUrl = '';
@@ -51,14 +63,14 @@
 
   function handleTimeout() {
     isRevealing = true;
-    correctIndex = stageData.options.findIndex(o => o.points === 0);
+    correctIndex = shuffledOptions.findIndex(o => o.points === 0);
     setTimeout(() => {
       dispatch("timeout", stageData.stage);
     }, 1000);
   }
 
   onMount(() => {
-    resetTimer();
+    initStage();
   });
 
   onDestroy(() => {
@@ -71,7 +83,7 @@
     
     isBgAnimating = true;
     
-    let letter = String.fromCharCode(97 + index);
+    let letter = option.originalId;
     let stage = stageData.stage;
     
     bgUrl = new URL(`../../assets/tahap-${stage}-jawaban-${letter}.webp`, import.meta.url).href;
@@ -88,7 +100,7 @@
       isBgAnimating = false;
       isRevealing = true;
       selectedIndex = index;
-      correctIndex = stageData.options.findIndex(o => o.points === 0);
+      correctIndex = shuffledOptions.findIndex(o => o.points === 0);
       
       setTimeout(() => {
         dispatch("select", option);
@@ -104,16 +116,17 @@
   </div>
 {/if}
 
-<div class="game-layout fade-in" key={animateKey}>
+{#key animateKey}
+<div class="game-layout fade-in">
   <div class="timer-badge {timeLeft <= 5 ? 'timer-danger' : ''}">
     <span class="timer-icon">⏳</span>
     <span class="timer-text">{timeLeft}s</span>
   </div>
   <div class="options-container" style="visibility: {isBgAnimating ? 'hidden' : 'visible'};">
-    {#each stageData.options as option, i (i)}
+    {#each shuffledOptions as option, i (option.originalId)}
       <button
         class="option-btn bounce-in {isRevealing && correctIndex === i ? 'correct-highlight' : ''} {isRevealing && correctIndex !== i ? 'hidden-wrong-option' : ''}"
-        style="animation-delay: {isRevealing && correctIndex === i ? '0s' : (0.3 + i * 1) + 's'};"
+        style="animation-delay: {isRevealing && correctIndex === i ? '0s' : (0.1 + i * 0.15) + 's'};"
         on:click={() => handleSelect(option, i)}
       >
         <span class="option-letter">{String.fromCharCode(65 + i)}</span>
@@ -130,6 +143,7 @@
     </div>
   </div>
 </div>
+{/key}
 
 <style>
   .timer-badge {
