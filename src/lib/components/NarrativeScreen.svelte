@@ -23,6 +23,7 @@
     typeInterval = setInterval(() => {
       if (pIndex >= paragraphs.length) {
         clearInterval(typeInterval);
+        typeInterval = null;
         showNextButton = true;
         return;
       }
@@ -53,9 +54,18 @@
   function handleNext() {
     dispatch('continue');
   }
+
+  function completeTyping() {
+    if (typeInterval) {
+      clearInterval(typeInterval);
+      typeInterval = null;
+      displayTexts = [...paragraphs];
+      showNextButton = true;
+    }
+  }
 </script>
 
-<div class="narrative-layout fade-in">
+<div class="narrative-layout fade-in" on:click={completeTyping} on:keydown={(e) => { if (e.key === 'Enter' || e.key === ' ') completeTyping(); }} role="button" tabindex="0">
   <div class="dialogues-wrapper">
     {#each paragraphs as paragraph, i}
       {#if displayTexts[i].length > 0}
@@ -78,7 +88,7 @@
   
   <div class="action-container">
     {#if showNextButton}
-      <button class="option-btn btn-lanjut pop-in" on:click={handleNext}>
+      <button class="option-btn btn-lanjut pop-in" on:click|stopPropagation={handleNext}>
         <svg width="45" height="30" viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg" class="btn-icon">
           <rect x="2" y="4" width="36" height="30" rx="4" fill="#334155" stroke="#94a3b8" stroke-width="3"/>
           <line x1="2" y1="12" x2="38" y2="12" stroke="#475569" stroke-width="1"/>

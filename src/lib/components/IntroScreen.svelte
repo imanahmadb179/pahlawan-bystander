@@ -39,6 +39,7 @@
       i++;
       if (i >= p1Text.length) {
         clearInterval(typeInterval);
+        typeInterval = null;
         showNextButton = true;
       }
     }, 60);
@@ -79,6 +80,7 @@
       i++;
       if (i >= p2Text.length) {
         clearInterval(typeInterval);
+        typeInterval = null;
         showStartButton = true;
       }
     }, 60);
@@ -91,12 +93,26 @@
       startScene3();
     }
   }
+
+  function completeTyping() {
+    if (typeInterval) {
+      clearInterval(typeInterval);
+      typeInterval = null;
+      if (displayMode === 1) {
+        p1Display = p1Text;
+        showNextButton = true;
+      } else if (displayMode === 3) {
+        p2Display = p2Text;
+        showStartButton = true;
+      }
+    }
+  }
 </script>
 
-<div class="game-layout">
+<div class="game-layout" on:click={completeTyping} on:keydown={(e) => { if (e.key === 'Enter' || e.key === ' ') completeTyping(); }} role="button" tabindex="0">
   <div class="options-container">
     {#if showNextButton}
-      <button class="option-btn btn-lanjut pop-in" on:click={handleNext}>
+      <button class="option-btn btn-lanjut pop-in" on:click|stopPropagation={handleNext}>
         <svg
           width="55"
           height="36"
@@ -147,7 +163,7 @@
       </button>
     {/if}
     {#if showStartButton}
-      <button class="btn-play pop-in" on:click={() => dispatch("start")}>
+      <button class="btn-play pop-in" on:click|stopPropagation={() => dispatch("start")}>
         <span class="play-text">PLAY</span>
       </button>
     {/if}

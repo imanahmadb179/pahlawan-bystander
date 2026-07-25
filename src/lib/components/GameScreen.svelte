@@ -6,7 +6,7 @@
 
   const dispatch = createEventDispatcher();
 
-  let timeLeft = 30;
+  let timeLeft = 45;
   let timerInterval;
   let isRevealing = false;
   let selectedIndex = null;
@@ -38,7 +38,7 @@
 
   function resetTimer() {
     if (timerInterval) clearInterval(timerInterval);
-    timeLeft = 30;
+    timeLeft = 45;
     isRevealing = false;
     isBgAnimating = false;
     bgUrl = '';
