@@ -58,7 +58,7 @@ body::after {
 }
 
 body::before {
-  background-image: url('./assets/bagian-soal.webp');
+  background-image: url('./assets/bg-baru.webp');
   background-size: cover;
   background-position: center;
   filter: blur(25px);
@@ -67,7 +67,7 @@ body::before {
 }
 
 body::after {
-  background-image: url('./assets/bagian-soal.webp');
+  background-image: url('./assets/bg-baru.webp');
   background-size: contain;
   background-position: center bottom;
   background-repeat: no-repeat;
