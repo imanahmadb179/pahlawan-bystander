@@ -1,6 +1,6 @@
 # Pahlawan Bystander
 
-Sebuah permainan naratif interaktif berbasis web yang dibangun dengan Svelte dan Vite.
+Sebuah permainan naratif interaktif berbasis web yang dibangun dengan Svelte (v4), JavaScript (ES6+), HTML5, CSS3 (Vanilla), Vite, dan Node.js (NPM).
 
 ## 🌟 Gambaran Umum
 
@@ -9,7 +9,7 @@ Pahlawan Bystander adalah pengalaman interaktif menarik yang dirancang untuk men
 ## ✨ Fitur
 
 - **Gameplay Naratif Interaktif**: Buat pilihan-pilihan yang akan memengaruhi akhir cerita.
-- **Desain Responsif**: Antarmuka indah yang beradaptasi dengan sempurna pada layar Seluler maupun Desktop.
+- **Desain Responsif**: Antarmuka indah yang beradaptasi dengan sempurna pada layar Seluler maupun Desktop (Gambar Background masih lebih optimal jika digunakan pada Smartphone).
 - **High Performance**: Dibangun menggunakan Svelte untuk pengalaman pengguna yang cepat dan reaktif.
 - **Peralatan Modern**: Digerakkan oleh Vite untuk proses pengembangan yang sangat cepat.
 
