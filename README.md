@@ -13,6 +13,12 @@ Pahlawan Bystander adalah pengalaman interaktif menarik yang dirancang untuk men
 - **High Performance**: Dibangun menggunakan Svelte untuk pengalaman pengguna yang cepat dan reaktif.
 - **Peralatan Modern**: Digerakkan oleh Vite untuk proses pengembangan yang sangat cepat.
 
+## ⚙️ Pengaturan Permainan (Configuration)
+
+Anda dapat mengubah pengaturan dasar permainan secara terpusat tanpa harus membongkar *code* komponen UI. Cukup ubah nilai variabel pada file `src/lib/config.js`:
+- `COUNTDOWN_TIMER_SECONDS`: Durasi hitung mundur (dalam detik) yang diberikan kepada pemain di setiap tahapan skenario.
+- `TYPING_SPEED_MS`: Kecepatan efek teks mengetik (dalam milidetik per huruf). Semakin kecil angkanya, teks akan muncul semakin cepat (rekomendasi: 30 - 80).
+
 ## 🚀 Memulai
 
 ### Prasyarat

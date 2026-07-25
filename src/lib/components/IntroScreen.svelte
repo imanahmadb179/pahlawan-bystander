@@ -1,6 +1,7 @@
 <script>
   import { onMount, createEventDispatcher } from "svelte";
   import { playIntroSound, playTypingSound, playPopSound } from '../soundEffects.js';
+  import { GAME_CONFIG } from '../config.js';
 
   const dispatch = createEventDispatcher();
 
@@ -42,7 +43,7 @@
         typeInterval = null;
         showNextButton = true;
       }
-    }, 60);
+    }, GAME_CONFIG.TYPING_SPEED_MS);
   }
 
   function startScene2() {
@@ -83,7 +84,7 @@
         typeInterval = null;
         showStartButton = true;
       }
-    }, 60);
+    }, GAME_CONFIG.TYPING_SPEED_MS);
   }
 
   function handleNext() {

@@ -1,6 +1,7 @@
 <script>
   import { createEventDispatcher, onMount, onDestroy } from 'svelte';
   import { playNarrativeSound, playTypingSound } from '../soundEffects.js';
+  import { GAME_CONFIG } from '../config.js';
   
   export let title = '';
   export let narrative = '';
@@ -44,7 +45,7 @@
       }
       
       displayTexts = displayTexts;
-    }, 60);
+    }, GAME_CONFIG.TYPING_SPEED_MS);
   });
   
   onDestroy(() => {

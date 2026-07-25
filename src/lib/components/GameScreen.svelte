@@ -1,12 +1,13 @@
 <script>
   import { createEventDispatcher, onMount, onDestroy } from "svelte";
   import { playTickSound } from '../soundEffects.js';
+  import { GAME_CONFIG } from '../config.js';
 
   export let stageData;
 
   const dispatch = createEventDispatcher();
 
-  let timeLeft = 45;
+  let timeLeft = GAME_CONFIG.COUNTDOWN_TIMER_SECONDS;
   let timerInterval;
   let isRevealing = false;
   let selectedIndex = null;
@@ -38,7 +39,7 @@
 
   function resetTimer() {
     if (timerInterval) clearInterval(timerInterval);
-    timeLeft = 45;
+    timeLeft = GAME_CONFIG.COUNTDOWN_TIMER_SECONDS;
     isRevealing = false;
     isBgAnimating = false;
     bgUrl = '';
