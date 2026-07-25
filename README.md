@@ -1,47 +1,106 @@
-# Svelte + Vite
+# Pahlawan Bystander
 
-This template should help get you started developing with Svelte in Vite.
+Sebuah permainan naratif interaktif berbasis web yang dibangun dengan Svelte dan Vite.
 
-## Recommended IDE Setup
+## 🌟 Gambaran Umum
 
-[VS Code](https://code.visualstudio.com/) + [Svelte](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode).
+Pahlawan Bystander adalah pengalaman interaktif menarik yang dirancang untuk mengedukasi dan menginspirasi. Dibangun menggunakan teknologi web modern, permainan ini menampilkan penceritaan dinamis, pilihan interaktif, pelacakan skor, dan antarmuka pengguna (UI) yang indah serta disesuaikan untuk perangkat desktop maupun seluler.
 
-## Need an official Svelte framework?
+## ✨ Fitur
 
-Check out [SvelteKit](https://github.com/sveltejs/kit#readme), which is also powered by Vite. Deploy anywhere with its serverless-first approach and adapt to various platforms, with out of the box support for TypeScript, SCSS, and Less, and easily-added support for mdsvex, GraphQL, PostCSS, Tailwind CSS, and more.
+- **Gameplay Naratif Interaktif**: Buat pilihan-pilihan yang akan memengaruhi akhir cerita.
+- **Desain Responsif**: Antarmuka indah yang beradaptasi dengan sempurna pada layar Seluler maupun Desktop.
+- **High Performance**: Dibangun menggunakan Svelte untuk pengalaman pengguna yang cepat dan reaktif.
+- **Peralatan Modern**: Digerakkan oleh Vite untuk proses pengembangan yang sangat cepat.
 
-## Technical considerations
+## 🚀 Memulai
 
-**Why use this over SvelteKit?**
+### Prasyarat
 
-- It brings its own routing solution which might not be preferable for some users.
-- It is first and foremost a framework that just happens to use Vite under the hood, not a Vite app.
+- [Node.js](https://nodejs.org/) (disarankan v16 atau yang lebih baru)
+- npm atau yarn
 
-This template contains as little as possible to get started with Vite + Svelte, while taking into account the developer experience with regards to HMR and intellisense. It demonstrates capabilities on par with the other `create-vite` templates and is a good starting point for beginners dipping their toes into a Vite + Svelte project.
+### Instalasi
 
-Should you later need the extended capabilities and extensibility provided by SvelteKit, the template has been structured similarly to SvelteKit so that it is easy to migrate.
+1. Clone repositori ini:
+   ```bash
+   git clone https://github.com/username-anda/pahlawan-bystander.git
+   cd pahlawan-bystander
+   ```
 
-**Why `global.d.ts` instead of `compilerOptions.types` inside `jsconfig.json` or `tsconfig.json`?**
+2. Instal dependensi:
+   ```bash
+   npm install
+   ```
 
-Setting `compilerOptions.types` shuts out all other types not explicitly listed in the configuration. Using triple-slash references keeps the default TypeScript setting of accepting type information from the entire workspace, while also adding `svelte` and `vite/client` type information.
+3. Jalankan server pengembangan (development server):
+   ```bash
+   npm run dev
+   ```
 
-**Why include `.vscode/extensions.json`?**
+4. Buka browser Anda dan navigasikan ke `http://localhost:5173`.
 
-Other templates indirectly recommend extensions via the README, but this file allows VS Code to prompt the user to install the recommended extension upon opening the project.
+## 🛠️ Dibangun Dengan
 
-**Why enable `checkJs` in the JS template?**
+- [Svelte](https://svelte.dev/) - Aplikasi web interaktif berkinerja tinggi
+- [Vite](https://vitejs.dev/) - Peralatan frontend generasi berikutnya
 
-It is likely that most cases of changing variable types in runtime are likely to be accidental, rather than deliberate. This provides advanced typechecking out of the box. Should you like to take advantage of the dynamically-typed nature of JavaScript, it is trivial to change the configuration.
+## 🤝 Berkontribusi
 
-**Why is HMR not preserving my local component state?**
+Kontribusi, laporan masalah (issues), dan permintaan fitur selalu diterima! 
+Jangan ragu untuk memeriksa [halaman issues](https://github.com/username-anda/pahlawan-bystander/issues) jika Anda ingin berkontribusi.
 
-HMR state preservation comes with a number of gotchas! It has been disabled by default in both `svelte-hmr` and `@sveltejs/vite-plugin-svelte` due to its often surprising behavior. You can read the details [here](https://github.com/sveltejs/svelte-hmr/tree/master/packages/svelte-hmr#preservation-of-local-state).
+## ⭐ Berikan Dukungan dan Bintang (Star) pada Repository Ini
 
-If you have state that's important to retain within a component, consider creating an external store which would not be replaced by HMR.
+Jika Anda merasa terbantu dengan adanya aplikasi ini, jangan lupa untuk memberikan dukungan kepada kami dengan cara memberikan bintang (Star) pada repository ini.
 
-```js
-// store.js
-// An extremely simple external store
-import { writable } from 'svelte/store'
-export default writable(0)
-```
+## ☕ Dukung Kami
+
+Game ini membantu dan menghibur Anda? Yuk dukung terus pengembangan open-source ini dengan mentraktir kami! Apresiasi sekecil apa pun akan sangat menjadi semangat bagi kami untuk terus berkarya.
+
+[![Dukung via Saweria](https://img.shields.io/badge/Dukung_via-Saweria-FFB000?style=for-the-badge&logo=ko-fi&logoColor=white)](https://saweria.co/imanahmadb)
+
+## 📝 Lisensi
+
+Proyek ini menggunakan lisensi [MIT](https://opensource.org/licenses/MIT). Lihat file [LICENSE](LICENSE) untuk detail lebih lanjut.
+
+## 📸 Tangkapan Layar (Screenshots)
+
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="src/assets/screenshots/welcome-screen.webp" alt="Welcome Screen" width="350"><br>
+      <em>Welcome Screen</em>
+    </td>
+    <td align="center">
+      <img src="src/assets/screenshots/aturan-permainan.webp" alt="Aturan Permainan" width="350"><br>
+      <em>Aturan Permainan</em>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="src/assets/screenshots/soal-narasi.webp" alt="Soal Narasi" width="350"><br>
+      <em>Soal Narasi</em>
+    </td>
+    <td align="center">
+      <img src="src/assets/screenshots/jawaban.webp" alt="Jawaban" width="350"><br>
+      <em>Jawaban</em>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="src/assets/screenshots/jawaban-tidak-tepat.webp" alt="Jawaban Tidak Tepat" width="350"><br>
+      <em>Jawaban Tidak Tepat</em>
+    </td>
+    <td align="center">
+      <img src="src/assets/screenshots/waktu-habis.webp" alt="Waktu Habis" width="350"><br>
+      <em>Waktu Habis</em>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" colspan="2">
+      <img src="src/assets/screenshots/game-over.webp" alt="Game Over" width="350"><br>
+      <em>Game Over</em>
+    </td>
+  </tr>
+</table>
