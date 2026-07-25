@@ -50,6 +50,11 @@ Anda dapat mengubah pengaturan dasar permainan secara terpusat tanpa harus membo
 
 - [Svelte](https://svelte.dev/) - Aplikasi web interaktif berkinerja tinggi
 - [Vite](https://vitejs.dev/) - Peralatan frontend generasi berikutnya
+- [Node.js](https://nodejs.org/) - Lingkungan runtime JavaScript untuk pengembangan dan build tools
+- [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) - Bahasa pemrograman utama
+- [HTML5](https://developer.mozilla.org/en-US/docs/Web/HTML) - Struktur dasar antarmuka
+- [CSS3](https://developer.mozilla.org/en-US/docs/Web/CSS) - Gaya dan presentasi aplikasi
+- [Sharp](https://sharp.pixelplumbing.com/) - Pemrosesan gambar untuk optimasi aset
 
 ## 🤝 Berkontribusi
 
