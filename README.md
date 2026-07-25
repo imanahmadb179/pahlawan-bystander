@@ -24,7 +24,7 @@ Pahlawan Bystander adalah pengalaman interaktif menarik yang dirancang untuk men
 
 1. Clone repositori ini:
    ```bash
-   git clone https://github.com/username-anda/pahlawan-bystander.git
+   git clone https://github.com/imanahmadb179/pahlawan-bystander.git
    cd pahlawan-bystander
    ```
 
@@ -48,7 +48,7 @@ Pahlawan Bystander adalah pengalaman interaktif menarik yang dirancang untuk men
 ## 🤝 Berkontribusi
 
 Kontribusi, laporan masalah (issues), dan permintaan fitur selalu diterima! 
-Jangan ragu untuk memeriksa [halaman issues](https://github.com/username-anda/pahlawan-bystander/issues) jika Anda ingin berkontribusi.
+Jangan ragu untuk memeriksa [halaman issues](https://github.com/imanahmadb179/pahlawan-bystander/issues) jika Anda ingin berkontribusi.
 
 ## ⭐ Berikan Dukungan dan Bintang (Star) pada Repository Ini
 
