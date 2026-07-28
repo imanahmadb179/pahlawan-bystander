@@ -12,7 +12,7 @@
   let currentStep = 0;
 
   function nextStep() {
-    if (currentStep < 5) {
+    if (currentStep < 4) {
       currentStep++;
     } else {
       handleRestart();
@@ -37,7 +37,7 @@
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <div
   class="result-screen pop-in"
-  style="background-image: url('{isWin || currentStep === 5 ? winBg : loseBg}');"
+  style="background-image: url('{isWin || currentStep === 4 ? winBg : loseBg}');"
   on:click={nextStep}
   on:keydown={(e) => e.key === "Enter" && nextStep()}
 >
@@ -59,7 +59,7 @@
 
     <div class="click-prompt fade-in">
       <span class="pulse-text"
-        >{currentStep < 5
+        >{currentStep < 4
           ? "Klik layar untuk melanjutkan"
           : "Klik layar untuk main lagi"}</span
       >
@@ -215,7 +215,7 @@
             </div>
           </div>
         </div>
-      {:else if currentStep === 5}
+      <!-- {:else if currentStep === 5}
         <div
           class="conclusion-section fade-in"
           style="margin-top: 0; padding-top: 0; border-top: none; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;"
@@ -230,7 +230,7 @@
           <a href="https://www.youtube.com/watch?v=M4ACYp75mjU" target="_blank" class="btn-youtube pop-in" on:click|stopPropagation>
             <span style="font-size: 1.2rem; margin-right: 0.5rem;">🎬</span> TONTON VIDEO DI YOUTUBE
           </a>
-        </div>
+        </div> -->
       {/if}
 
     </div>
