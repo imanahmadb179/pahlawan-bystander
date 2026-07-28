@@ -57,13 +57,14 @@
   $: {
     if (typeof document !== 'undefined') {
       if (currentStageIndex === 0 || !gameStarted || showWelcome || showResult) {
-        const defaultBgUrl = new URL('./assets/bg-baru.webp', import.meta.url).href;
+        const defaultBgUrl = imageModules['./assets/bg-baru.webp'];
         document.body.style.setProperty('--global-bg', `url('${defaultBgUrl}')`);
       } else {
         const prevStageData = gameData[currentStageIndex - 1];
         const correctIndex = prevStageData.options.findIndex(o => o.points === 0);
         const letter = String.fromCharCode(97 + correctIndex);
-        const bgUrl = new URL(`./assets/tahap-${prevStageData.stage}-jawaban-${letter}.webp`, import.meta.url).href;
+        const assetPath = `./assets/tahap-${prevStageData.stage}-jawaban-${letter}.webp`;
+        const bgUrl = imageModules[assetPath];
         document.body.style.setProperty('--global-bg', `url('${bgUrl}')`);
       }
     }

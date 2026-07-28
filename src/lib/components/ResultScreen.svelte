@@ -361,36 +361,7 @@
     }
   }
 
-  .modal-header {
-    background: #f8fafc;
-    padding: 1rem;
-    text-align: center;
-    position: relative;
-    border-bottom: 1px solid #e2e8f0;
-    border-radius: 8px 8px 0 0;
-  }
 
-  .modal-title-text {
-    color: #0f172a;
-    font-size: 1rem;
-    font-weight: 700;
-    letter-spacing: 2px;
-  }
-
-  .close-icon {
-    position: absolute;
-    right: 1.2rem;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #94a3b8;
-    font-size: 1.5rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: color 0.2s;
-  }
-  .close-icon:hover {
-    color: #0f172a;
-  }
 
   .modal-body {
     padding: 0.8rem;
@@ -421,19 +392,7 @@
     margin-bottom: 0;
   }
 
-  .bottom-prompt {
-    position: absolute;
-    bottom: 20px;
-    width: 100%;
-    text-align: center;
-    color: rgba(255, 255, 255, 0.8);
-    font-size: 1rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    animation: pulse 1.5s infinite;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
-  }
+
 
   @keyframes pulse {
     0%,
@@ -572,19 +531,7 @@
     margin: 0.3rem 0;
     filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
   }
-  .slide-in-right {
-    animation: slideInRight 0.3s ease-out forwards;
-  }
-  @keyframes slideInRight {
-    from {
-      opacity: 0;
-      transform: translateX(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
+
 
   .btn-youtube {
     display: flex;

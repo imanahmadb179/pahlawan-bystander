@@ -80,6 +80,8 @@
     if (timerInterval) clearInterval(timerInterval);
   });
 
+  const imageModules = import.meta.glob('../../assets/*.{webp,png,svg}', { eager: true, query: '?url', import: 'default' });
+
   function handleSelect(option, index) {
     if (isBgAnimating || isRevealing) return;
     if (timerInterval) clearInterval(timerInterval);
@@ -92,7 +94,8 @@
     let stage = stageData.stage;
     
     // Try WebP first, fallback to PNG automatically via <img> onerror
-    bgUrl = new URL(`../../assets/tahap-${stage}-jawaban-${letter}.webp`, import.meta.url).href;
+    const assetPath = `../../assets/tahap-${stage}-jawaban-${letter}.webp`;
+    bgUrl = imageModules[assetPath];
     
     if (option.points === 0) {
       effectType = 'success';
@@ -352,12 +355,7 @@
     color: var(--text-primary);
   }
 
-  .dialogue-text p {
-    margin-bottom: 0.75rem;
-  }
-  .dialogue-text p:last-child {
-    margin-bottom: 0;
-  }
+
 
   @media (max-width: 768px) {
     .timer-badge {
@@ -442,9 +440,7 @@
       line-height: 1.35;
     }
 
-    .dialogue-text p {
-      margin-bottom: 0.25rem;
-    }
+
 
     .dialogue-tail {
       display: none;
@@ -485,17 +481,7 @@
     color: white !important;
   }
 
-  .wrong-highlight {
-    background: #fee2e2 !important;
-    border-color: #dc2626 !important;
-    box-shadow: 0 4px 0 #b91c1c, 0 5px 10px rgba(0, 0, 0, 0.1) !important;
-    transform: translateY(2px);
-    opacity: 1 !important;
-  }
-  .wrong-highlight .option-letter {
-    background: #dc2626 !important;
-    color: white !important;
-  }
+
 
   .hidden-wrong-option {
     visibility: hidden !important;
@@ -531,7 +517,7 @@
   }
   
   /* Success: Cinematic zoom & golden glow */
-  .dynamic-bg-layer.success .bg-image {
+  .dynamic-bg-layer.success .bg-image-img {
     animation: cinematicZoom 3s ease-out forwards;
   }
   .dynamic-bg-layer.success .bg-overlay {
@@ -540,7 +526,7 @@
   }
   
   /* Danger: Shake & dark red vignette */
-  .dynamic-bg-layer.danger .bg-image {
+  .dynamic-bg-layer.danger .bg-image-img {
     animation: scaryShake 3s ease-in-out forwards;
   }
   .dynamic-bg-layer.danger .bg-overlay {
@@ -549,7 +535,7 @@
   }
 
   /* Warning: Slight dim */
-  .dynamic-bg-layer.warning .bg-image {
+  .dynamic-bg-layer.warning .bg-image-img {
     animation: slightZoom 3s ease-out forwards;
   }
   .dynamic-bg-layer.warning .bg-overlay {

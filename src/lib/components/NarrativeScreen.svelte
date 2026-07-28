@@ -78,7 +78,7 @@
         <div class="dialogue-container">
           <div class="dialogue-box">
             {#if i === 0}
-              <h3 class="dialogue-title">Narasi</h3>
+              <h3 class="dialogue-title">{title || 'Narasi'}</h3>
             {/if}
             <div class="dialogue-text">
               <p class="type-text">{@html formatText(displayTexts[i])}</p>
@@ -245,9 +245,7 @@
     animation: fadeIn 0.4s ease-out forwards;
   }
 
-  .slide-down {
-    animation: slideDown 0.3s ease-out forwards;
-  }
+
   
   .pop-in {
     animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
@@ -258,10 +256,7 @@
     to { opacity: 1; }
   }
 
-  @keyframes slideDown {
-    from { opacity: 0; transform: translateY(-20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
+
   
   @keyframes popIn {
     0% { transform: scale(0.8); opacity: 0; }
