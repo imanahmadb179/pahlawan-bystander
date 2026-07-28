@@ -255,7 +255,7 @@
     cursor: pointer;
     background-color: rgba(0, 0, 0, 0.15); /* Very slight dimming */
     background-blend-mode: overlay;
-    padding: 3rem 1rem 2rem 1rem; /* 3rem top, 2rem bottom (~1cm) */
+    padding: 3rem 1rem calc(2rem + 1cm) 1rem; /* Ditambahkan 1cm agar tidak terpotong di smartphone */
   }
 
   .top-wrapper {
