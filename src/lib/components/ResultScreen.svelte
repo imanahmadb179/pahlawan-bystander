@@ -47,7 +47,7 @@
   <div class="spacer"></div>
 
   <div class="bottom-modal-box" on:click|stopPropagation>
-    <div class="modal-body">
+    <div class="modal-body" style="max-height: 60vh; overflow-y: auto;">
       <h1 class="result-title {isWin ? 'title-win' : 'title-lose'}">
         {isWin ? "Penyelamatan Berhasil!" : "Game Over!"}
       </h1>
@@ -64,6 +64,29 @@
             berharga. Mari pelajari prosedurnya dan coba lagi!
           </p>
         {/if}
+
+        <div class="conclusion-section">
+          <h3 class="conclusion-title">Act Now, Safe a Life <br><span class="conclusion-subtitle">(AHA, 2025)</span></h3>
+          <p class="conclusion-heading">Alur bantuan hidup dasar untuk penolong awam</p>
+          <ol class="conclusion-list">
+            <li><strong>D (Danger/Bahaya)</strong> &rarr; prinsip 3A: Aman Diri, Aman Korban, Aman Lingkungan</li>
+            <li><strong>R (Response/Respon)</strong>
+              <ul>
+                <li>Menilai kesadaran &rarr; menepuk kedua bahu korban dan memanggil dengan suara lantang</li>
+                <li>Menilai napas &rarr; bernafas normal, tidak bernapas, atau hanya megap-megap (gasping).</li>
+              </ul>
+            </li>
+            <li><strong>S (Shout for Help/Panggil Bantuan)</strong> &rarr; menunjuk orang secara spesifik untuk menghuungi ambulans dan mengambil alat kejut jantung (AED).
+              <p class="conclusion-note">*Tindakan menunjuk secara spesifik juga merupakan implementasi psikologi sosial untuk memecahkan Bystander Effect, karena dapat menjadikan tanggung jawab lebih jelas dan personal, sehingga kemungkinan orang tersebut bertindak lebih besar.</p>
+            </li>
+            <li><strong>C (Circulation/Compression/Kompresi dada)</strong>
+              <p class="conclusion-step">&rarr; Cara kompresi dada yang tepat : Letakkan tumit salah satu tangan di tengah dada korban (setengah bawah tulang dada), tangan lainnya di atas tangan pertama, dengan jari-jari saling mengunci. Lengan harus lurus saat menekan dada. Kecepatan 100-120 kai/menit, kedalaman 5-6 cm. Setelah setiap tekanan, biarkan dada kembali mengembang sepenuhnya.</p>
+              <p class="conclusion-note">*Berikan gambar kompresi dada</p>
+              <p class="conclusion-step">&rarr; AED dinyalakan dengan meminta bantuan orang lain, supaya kompresi dada tidak terhenti dan mengatasi Bystander Effect. Setelah AED menyala, ikuti instruksi dari AED. Jangan ada yang menyentuh korban saat AED mengeluarkan instruksi &ldquo;Analyzing rhythm&rdquo; dan &ldquo;Shock advised. Stand clear.&ldquo; Kompresi dada tetap dilanjutkan sesuai instruksi AED, dan sampai bantuan medis datang.</p>
+              <p class="conclusion-note">*Berikan gambar AED</p>
+            </li>
+          </ol>
+        </div>
       </div>
     </div>
   </div>
@@ -321,5 +344,61 @@
       bottom: 15px;
       font-size: 0.9rem;
     }
+  }
+
+  /* Conclusion Styles */
+  .conclusion-section {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 2px dashed #cbd5e1;
+    text-align: left;
+  }
+  .conclusion-title {
+    color: #0f172a;
+    font-size: 1.3rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+  .conclusion-subtitle {
+    font-size: 0.9rem;
+    color: #64748b;
+    font-weight: 600;
+  }
+  .conclusion-heading {
+    font-weight: 700;
+    color: #0284c7;
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+  }
+  .conclusion-list {
+    margin: 0;
+    padding-left: 1.5rem;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: #334155;
+  }
+  .conclusion-list li {
+    margin-bottom: 0.8rem;
+  }
+  .conclusion-list ul {
+    margin-top: 0.3rem;
+    padding-left: 1.2rem;
+  }
+  .conclusion-list ul li {
+    margin-bottom: 0.3rem;
+  }
+  .conclusion-note {
+    font-style: italic;
+    color: #64748b;
+    font-size: 0.85rem;
+    margin-top: 0.4rem;
+    margin-bottom: 0.4rem;
+  }
+  .conclusion-step {
+    margin-top: 0.4rem;
+    margin-bottom: 0.2rem;
   }
 </style>

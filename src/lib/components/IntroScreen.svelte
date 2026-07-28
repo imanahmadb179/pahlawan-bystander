@@ -1,12 +1,16 @@
 <script>
   import { onMount, createEventDispatcher } from "svelte";
-  import { playIntroSound, playTypingSound, playPopSound } from '../soundEffects.js';
-  import { GAME_CONFIG } from '../config.js';
+  import {
+    playIntroSound,
+    playTypingSound,
+    playPopSound,
+  } from "../soundEffects.js";
+  import { GAME_CONFIG } from "../config.js";
 
   const dispatch = createEventDispatcher();
 
   let p1Text =
-    "Tujuan Anda adalah menyelamatkan nyawa korban dengan menerapkan panduan Basic Life Support (BLS) dari American Heart Association (AHA) sekaligus memecahkan fenomena psikologis Bystander Effect.";
+    "Tujuan Anda adalah menyelamatkan nyawa korban dengan menerapkan panduan Basic Life Support (BLS) dari American Heart Association (AHA) sekaligus memecahkan fenomena psikologis Bystander Effect.\n\n*Bystander Effect adalah fenomena psikologis dimana seseorang cenderung diam atau tidak menolong orang yang sedang dalam kesulitan karena ada banyak orang lain di sekitar tempat kejadian.";
   let p2Text =
     "Jika Angka Keselamatan mencapai 0, simulasi dihentikan (GAME OVER). Jika Anda berhasil melakukan semua tindakan hingga bantuan medis datang, Anda MENANG.";
 
@@ -32,11 +36,11 @@
     typeInterval = setInterval(() => {
       let char = p1Text.charAt(i);
       p1Display += char;
-      
-      if (char !== ' ' && char !== '\n') {
+
+      if (char !== " " && char !== "\n") {
         playTypingSound();
       }
-      
+
       i++;
       if (i >= p1Text.length) {
         clearInterval(typeInterval);
@@ -73,11 +77,11 @@
     typeInterval = setInterval(() => {
       let char = p2Text.charAt(i);
       p2Display += char;
-      
-      if (char !== ' ' && char !== '\n') {
+
+      if (char !== " " && char !== "\n") {
         playTypingSound();
       }
-      
+
       i++;
       if (i >= p2Text.length) {
         clearInterval(typeInterval);
@@ -110,10 +114,21 @@
   }
 </script>
 
-<div class="game-layout" on:click={completeTyping} on:keydown={(e) => { if (e.key === 'Enter' || e.key === ' ') completeTyping(); }} role="button" tabindex="0">
+<div
+  class="game-layout"
+  on:click={completeTyping}
+  on:keydown={(e) => {
+    if (e.key === "Enter" || e.key === " ") completeTyping();
+  }}
+  role="button"
+  tabindex="0"
+>
   <div class="options-container">
     {#if showNextButton}
-      <button class="option-btn btn-lanjut pop-in" on:click|stopPropagation={handleNext}>
+      <button
+        class="option-btn btn-lanjut pop-in"
+        on:click|stopPropagation={handleNext}
+      >
         <svg
           width="55"
           height="36"
@@ -164,7 +179,10 @@
       </button>
     {/if}
     {#if showStartButton}
-      <button class="btn-play pop-in" on:click|stopPropagation={() => dispatch("start")}>
+      <button
+        class="btn-play pop-in"
+        on:click|stopPropagation={() => dispatch("start")}
+      >
         <span class="play-text">PLAY</span>
       </button>
     {/if}
@@ -474,13 +492,13 @@
 
     .btn-play {
       background: linear-gradient(180deg, #b4ec51 0%, #65a30d 100%);
-      border: 4px solid white !important; 
+      border: 4px solid white !important;
       border-radius: 99px;
       position: relative;
-      margin-top: 15px; 
+      margin-top: 15px;
       width: 100%; /* Full width */
-      padding: 0.8rem 1rem; 
-      box-shadow: 
+      padding: 0.8rem 1rem;
+      box-shadow:
         inset 0 6px 0 rgba(255, 255, 255, 0.4),
         inset 0 -6px 0 rgba(0, 0, 0, 0.1),
         0 6px 0 #3f6212,
