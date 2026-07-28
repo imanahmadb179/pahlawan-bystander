@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Abaikan folder gambar lama
+src/assets/gambar-lama/

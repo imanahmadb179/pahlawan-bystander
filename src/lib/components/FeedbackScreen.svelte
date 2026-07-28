@@ -26,6 +26,11 @@
     }
   });
 
+  function formatText(text) {
+    if (!text) return '';
+    return text.replaceAll('Bystander Effect', '<span class="bystander-highlight">Bystander Effect</span>');
+  }
+
   function handleNext() {
     dispatch('next');
   }
@@ -49,7 +54,7 @@
     <div class="modal-body">
       <div class="explanation-box">
         {#each selectedOption.explanation.split('\n') as p}
-          <p>{p}</p>
+          <p>{@html formatText(p)}</p>
         {/each}
       </div>
     </div>
@@ -103,16 +108,20 @@
   }
 
   .status-correct .modal-header { 
-    background: linear-gradient(to bottom, #86efac, #22c55e); 
+    background: linear-gradient(135deg, #86efac, #22c55e, #16a34a);
+    animation: correctShimmer 1.5s ease-in-out forwards;
   }
   .status-warning .modal-header { 
-    background: linear-gradient(to bottom, #fde047, #eab308); 
+    background: linear-gradient(135deg, #fde047, #eab308, #ca8a04);
+    animation: warningJitter 0.4s ease-in-out forwards;
   }
   .status-danger .modal-header { 
-    background: linear-gradient(to bottom, #fca5a5, #ef4444); 
+    background: linear-gradient(135deg, #fca5a5, #ef4444, #b91c1c);
+    animation: dangerPulse 0.5s ease-in-out forwards;
   }
   .status-timeout .modal-header { 
-    background: linear-gradient(to bottom, #fca5a5, #ef4444); 
+    background: linear-gradient(135deg, #fca5a5, #ef4444, #b91c1c);
+    animation: dangerPulse 0.5s ease-in-out forwards;
   }
 
   .icon-badge {
@@ -130,6 +139,20 @@
     align-items: center;
     border: 6px solid #1e3a5f;
     box-shadow: 0 8px 15px rgba(0,0,0,0.3);
+  }
+
+  .status-correct .icon-badge {
+    animation: iconBounce 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.5) 0.1s both;
+    box-shadow: 0 8px 15px rgba(0,0,0,0.3), 0 0 20px rgba(34, 197, 94, 0.5);
+  }
+  .status-warning .icon-badge {
+    animation: iconBounce 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.3) 0.05s both;
+    box-shadow: 0 8px 15px rgba(0,0,0,0.3), 0 0 15px rgba(234, 179, 8, 0.5);
+  }
+  .status-danger .icon-badge,
+  .status-timeout .icon-badge {
+    animation: iconShake 0.5s ease-in-out 0.1s both;
+    box-shadow: 0 8px 15px rgba(0,0,0,0.3), 0 0 15px rgba(239, 68, 68, 0.6);
   }
 
   .modal-title {
@@ -178,6 +201,11 @@
   }
   .explanation-box p:last-child {
     margin-bottom: 0;
+  }
+
+  .explanation-box :global(.bystander-highlight) {
+    font-weight: 700;
+    color: #2563eb;
   }
 
   .modal-footer {
@@ -241,6 +269,46 @@
   @keyframes popIn {
     0% { transform: scale(0.8); opacity: 0; }
     100% { transform: scale(1); opacity: 1; }
+  }
+
+  @keyframes correctShimmer {
+    0%   { filter: brightness(1); }
+    30%  { filter: brightness(1.3) saturate(1.4); }
+    60%  { filter: brightness(1.1) saturate(1.2); }
+    100% { filter: brightness(1); }
+  }
+
+  @keyframes warningJitter {
+    0%   { transform: translateX(0); }
+    20%  { transform: translateX(-4px); }
+    40%  { transform: translateX(4px); }
+    60%  { transform: translateX(-2px); }
+    80%  { transform: translateX(2px); }
+    100% { transform: translateX(0); }
+  }
+
+  @keyframes dangerPulse {
+    0%   { filter: brightness(1); }
+    25%  { filter: brightness(1.4) saturate(1.5); }
+    50%  { filter: brightness(0.9); }
+    75%  { filter: brightness(1.2); }
+    100% { filter: brightness(1); }
+  }
+
+  @keyframes iconBounce {
+    0%   { transform: translateX(-50%) scale(0.5); opacity: 0; }
+    60%  { transform: translateX(-50%) scale(1.2); opacity: 1; }
+    80%  { transform: translateX(-50%) scale(0.95); }
+    100% { transform: translateX(-50%) scale(1); opacity: 1; }
+  }
+
+  @keyframes iconShake {
+    0%   { transform: translateX(-50%) rotate(0deg); }
+    20%  { transform: translateX(calc(-50% - 8px)) rotate(-10deg); }
+    40%  { transform: translateX(calc(-50% + 8px)) rotate(10deg); }
+    60%  { transform: translateX(calc(-50% - 5px)) rotate(-6deg); }
+    80%  { transform: translateX(calc(-50% + 5px)) rotate(6deg); }
+    100% { transform: translateX(-50%) rotate(0deg); }
   }
 
   @media (max-width: 768px) {

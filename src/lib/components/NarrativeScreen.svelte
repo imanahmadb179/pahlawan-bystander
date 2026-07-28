@@ -64,6 +64,11 @@
       showNextButton = true;
     }
   }
+
+  function formatText(text) {
+    if (!text) return '';
+    return text.replaceAll('Bystander Effect', '<span class="bystander-highlight">Bystander Effect</span>');
+  }
 </script>
 
 <div class="narrative-layout fade-in" on:click={completeTyping} on:keydown={(e) => { if (e.key === 'Enter' || e.key === ' ') completeTyping(); }} role="button" tabindex="0">
@@ -76,7 +81,7 @@
               <h3 class="dialogue-title">Narasi</h3>
             {/if}
             <div class="dialogue-text">
-              <p class="type-text">{displayTexts[i]}</p>
+              <p class="type-text">{@html formatText(displayTexts[i])}</p>
             </div>
             {#if i === paragraphs.length - 1}
               <div class="dialogue-tail"></div>
@@ -160,6 +165,11 @@
 
   .type-text {
     margin: 0;
+  }
+
+  .type-text :global(.bystander-highlight) {
+    font-weight: 700;
+    color: #2563eb;
   }
 
   .dialogue-tail {

@@ -21,8 +21,8 @@
   let isPreloading = true;
   let preloadProgress = 0;
 
-  const imageModules = import.meta.glob('./assets/*.{webp,png,svg}', { eager: true });
-  const allImages = Object.values(imageModules).map(module => module.default || module);
+  const imageModules = import.meta.glob('./assets/*.{webp,png,svg}', { eager: true, query: '?url', import: 'default' });
+  const allImages = Object.values(imageModules);
 
   onMount(() => {
     let loadedCount = 0;
@@ -53,6 +53,20 @@
   $: showResult = isGameOver || hasWon;
   $: currentStageNum = currentStageIndex + 1;
   $: isNarrativeActive = !!(gameData[currentStageIndex]?.narrative && !narrativeRead);
+  
+  $: {
+    if (typeof document !== 'undefined') {
+      if (currentStageIndex === 0 || !gameStarted || showWelcome || showResult) {
+        document.body.style.setProperty('--global-bg', `url('/src/assets/bg-baru.webp')`);
+      } else {
+        const prevStageData = gameData[currentStageIndex - 1];
+        const correctIndex = prevStageData.options.findIndex(o => o.points === 0);
+        const letter = String.fromCharCode(97 + correctIndex);
+        const bgUrl = new URL(`./assets/tahap-${prevStageData.stage}-jawaban-${letter}.webp`, import.meta.url).href;
+        document.body.style.setProperty('--global-bg', `url('${bgUrl}')`);
+      }
+    }
+  }
   
   function handleWelcomeStart() {
     showWelcome = false;

@@ -10,7 +10,7 @@
   const dispatch = createEventDispatcher();
 
   let p1Text =
-    "Tujuan Anda adalah menyelamatkan nyawa korban dengan menerapkan panduan Basic Life Support (BLS) dari American Heart Association (AHA) sekaligus memecahkan fenomena psikologis Bystander Effect.\n\n*Bystander Effect adalah fenomena psikologis dimana seseorang cenderung diam atau tidak menolong orang yang sedang dalam kesulitan karena ada banyak orang lain di sekitar tempat kejadian.";
+    "Tujuan Anda adalah menyelamatkan nyawa korban dengan menerapkan panduan Basic Life Support (BLS) dari American Heart Association (AHA) sekaligus memecahkan fenomena psikologis Bystander Effect.\n*Bystander Effect adalah fenomena psikologis dimana seseorang cenderung diam atau tidak menolong orang yang sedang dalam kesulitan karena ada banyak orang lain di sekitar tempat kejadian.";
   let p2Text =
     "Jika Angka Keselamatan mencapai 0, simulasi dihentikan (GAME OVER). Jika Anda berhasil melakukan semua tindakan hingga bantuan medis datang, Anda MENANG.";
 
@@ -27,6 +27,11 @@
     playIntroSound();
     startScene1();
   });
+
+  function formatP1(text) {
+    if (!text) return "";
+    return text.replaceAll("Bystander Effect", '<span class="bystander-highlight">Bystander Effect</span>');
+  }
 
   function startScene1() {
     displayMode = 1;
@@ -193,7 +198,7 @@
       <h3 class="dialogue-title">Aturan Permainan</h3>
       <div class="dialogue-text">
         {#if displayMode === 1}
-          <p class="type-text fade-in">{p1Display}</p>
+          <p class="type-text fade-in">{@html formatP1(p1Display)}</p>
         {:else if displayMode === 2}
           <div class="rules-grid fade-in">
             {#if scoreSteps >= 1}
@@ -395,6 +400,12 @@
 
   .type-text {
     line-height: 1.4;
+    white-space: pre-wrap;
+  }
+
+  .type-text :global(.bystander-highlight) {
+    font-weight: 700;
+    color: #2563eb;
   }
 
   .rules-grid {

@@ -30,22 +30,50 @@ function playTone(freq, type, time, duration, vol = 0.1) {
 }
 
 export function playCorrectSound() {
-  playTone(523.25, 'sine', 0, 0.3); // C5
-  playTone(659.25, 'sine', 0.1, 0.3); // E5
-  playTone(783.99, 'sine', 0.2, 0.3); // G5
-  playTone(1046.50, 'sine', 0.3, 0.4); // C6
+  // Triumphant fanfare: ascending chord + bell shine
+  playTone(523.25, 'sine', 0,    0.1, 0.08);   // C5
+  playTone(659.25, 'sine', 0.08, 0.1, 0.1);    // E5
+  playTone(783.99, 'sine', 0.16, 0.1, 0.12);   // G5
+  playTone(1046.50, 'sine', 0.24, 0.5, 0.15);  // C6 - big hit
+  playTone(1318.51, 'sine', 0.3,  0.4, 0.1);   // E6 shine
+  playTone(1046.50, 'sine', 0.55, 0.6, 0.1);   // C6 sustain
+  playTone(783.99,  'sine', 0.6,  0.4, 0.07);  // G5
 }
 
 export function playWarningSound() {
-  playTone(392.00, 'triangle', 0, 0.3); // G4
-  playTone(329.63, 'triangle', 0.2, 0.4); // E4
+  // Tense: descending + dissonant edge
+  playTone(493.88, 'triangle', 0,   0.15, 0.08); // B4
+  playTone(440.00, 'triangle', 0.1, 0.15, 0.1);  // A4
+  playTone(392.00, 'triangle', 0.2, 0.15, 0.1);  // G4
+  playTone(349.23, 'triangle', 0.3, 0.5,  0.12); // F4
+  playTone(370.00, 'sawtooth', 0.3, 0.4,  0.03); // F#4 dissonant
 }
 
 export function playWrongSound() {
-  playTone(207.65, 'sawtooth', 0, 0.25, 0.05); // G#3
-  playTone(196.00, 'sawtooth', 0.2, 0.25, 0.05); // G3
-  playTone(185.00, 'sawtooth', 0.4, 0.5, 0.05); // F#3
+  // Epic fail: deep crash + low descend
+  const ctx = getAudioContext();
+  const bufferSize = Math.floor(ctx.sampleRate * 0.08);
+  const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+  const data = buffer.getChannelData(0);
+  for (let i = 0; i < bufferSize; i++) data[i] = Math.random() * 2 - 1;
+  const noise = ctx.createBufferSource();
+  noise.buffer = buffer;
+  const noiseFilter = ctx.createBiquadFilter();
+  noiseFilter.type = 'lowpass';
+  noiseFilter.frequency.value = 800;
+  const noiseGain = ctx.createGain();
+  noiseGain.gain.setValueAtTime(0.4, ctx.currentTime);
+  noiseGain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.08);
+  noise.connect(noiseFilter);
+  noiseFilter.connect(noiseGain);
+  noiseGain.connect(ctx.destination);
+  noise.start(ctx.currentTime);
+  playTone(261.63, 'sawtooth', 0,    0.2, 0.1);
+  playTone(220.00, 'sawtooth', 0.15, 0.2, 0.1);
+  playTone(185.00, 'sawtooth', 0.3,  0.2, 0.08);
+  playTone(155.56, 'sawtooth', 0.45, 0.7, 0.12);
 }
+
 
 export function playTimeoutSound() {
   playTone(150, 'sawtooth', 0, 0.1, 0.05); 

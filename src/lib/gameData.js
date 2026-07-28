@@ -1,7 +1,7 @@
 export const gameData = [
   {
     stage: 1,
-    title: "Tahap 1. Apa tindakan pertama anda?",
+    title: "Apa tindakan pertama anda?",
     narrative: "Anda sedang berjalan-jalan di sebuah mall yang sangat ramai pada akhir pekan. Tiba-tiba, jarak dua meter di depan Anda, seorang pria paruh baya terlihat memegang dadanya, meringis kesakitan, dan ambruk ke lantai. Ia tergeletak diam tak bergerak.\n\nOrang-orang di sekelilingnya terkejut dan langkah mereka terhenti. Namun, tidak ada satu pun yang maju untuk menolong. Beberapa orang hanya saling berbisik, sementara yang lain justru mengeluarkan smartphone untuk merekam kejadian tersebut. Bystander Effect sedang terjadi, dan korban sangat membutuhkan bantuan detik ini juga.\n\n*Bystander Effect adalah fenomena psikologis dimana seseorang cenderung diam atau tidak menolong orang yang sedang dalam kesulitan karena ada banyak orang lain di sekitar tempat kejadian.",
     options: [
       {
@@ -23,7 +23,7 @@ export const gameData = [
   },
   {
     stage: 2,
-    title: "Tahap 2. Anda sudah memastikan semua aman, apa tindakan anda selanjutnya?",
+    title: "Anda sudah memastikan semua aman, apa tindakan anda selanjutnya?",
     narrative: "",
     options: [
       {
@@ -45,7 +45,7 @@ export const gameData = [
   },
   {
     stage: 3,
-    title: "Tahap 3. Korban tidak merespon, apa tindakan anda?",
+    title: "Korban tidak merespon, apa tindakan anda?",
     narrative: "",
     options: [
       {
@@ -67,7 +67,7 @@ export const gameData = [
   },
   {
     stage: 4,
-    title: "Tahap 4. Korban tidak sadar dan tidak bernapas (nafas megap-megap). Apa tindakan anda selanjutnya?",
+    title: "Korban tidak sadar dan tidak bernapas (nafas megap-megap). Apa tindakan anda selanjutnya?",
     narrative: "",
     options: [
       {
@@ -89,45 +89,45 @@ export const gameData = [
   },
   {
     stage: 5,
-    title: "Tahap 5. Setelah memanggil bantuan, tindakan apa yang anda lakukan?",
+    title: "Setelah memanggil bantuan, tindakan apa yang anda lakukan?",
     narrative: "",
     options: [
       {
         text: "Segera melakukan kompresi dada, dengan meletakkan kedua tangan sedikit di bawah tulang dada tengah. Tekan dengan kecepatan 100-120 kali/menit, kedalaman 4-5 cm.",
         points: -40,
-        explanation: "Langkah sudah tepat, tetapi cara kompresi dada tidak tepat.\nTindakan kompresi dada dilakukan segera, tanpa menunggu alat kejut jantung (AED). Dalam algoritma bantuan hidup dasar untuk penolong awam, langkah keempat adalah C (Circulation/Compression/Kompresi dada), dengan melakukan kompresi dada yang tepat.\nCara kompresi dada yang tepat dilakukan dengan meletakkan tumit salah satu tangan di tengah dada korban (setengah bawah tulang dada), tangan lainnya di atas tangan pertama, dengan jari-jari saling mengunci. Lengan harus lurus saat menekan dada. Kecepatan 100-120 kai/menit, kedalaman 5-6 cm. Setelah setiap tekanan, biarkan dada kembali mengembang sepenuhnya.\n*Berikan gambar kompresi dada"
+        explanation: "Langkah sudah tepat, tetapi cara kompresi dada tidak tepat.\nTindakan kompresi dada dilakukan segera, tanpa menunggu alat kejut jantung (AED). Dalam algoritma bantuan hidup dasar untuk penolong awam, langkah keempat adalah C (Circulation/Compression/Kompresi dada), dengan melakukan kompresi dada yang tepat.\nCara kompresi dada yang tepat dilakukan dengan meletakkan tumit salah satu tangan di tengah dada korban (setengah bawah tulang dada), tangan lainnya di atas tangan pertama, dengan jari-jari saling mengunci. Lengan harus lurus saat menekan dada. Kecepatan 100-120 kai/menit, kedalaman 5-6 cm. Setelah setiap tekanan, biarkan dada kembali mengembang sepenuhnya."
       },
       {
         text: "Segera melakukan kompresi dada, dengan meletakkan kedua tangan di tengah dada. Tekan dengan kecepatan 100-120 kali/menit, kedalaman 5-6 cm.",
         points: 0,
-        explanation: "Langkah ini tepat, kompresi dada dilakukan segera, tanpa menunggu alat kejut jantung (AED). Dalam algoritma bantuan hidup dasar untuk penolong awam, langkah keempat adalah C (Circulation/Compression/Kompresi dada), dengan melakukan kompresi dada yang tepat.\nCara kompresi dada dilakukan dengan meletakkan tumit salah satu tangan di tengah dada korban (setengah bawah tulang dada), tangan lainnya di atas tangan pertama, dengan jari-jari saling mengunci. Lengan harus lurus saat menekan dada. Kecepatan 100-120 kai/menit, kedalaman 5-6 cm. Setelah setiap tekanan, biarkan dada kembali mengembang sepenuhnya.\n*Berikan gambar kompresi dada"
+        explanation: "Langkah ini tepat, kompresi dada dilakukan segera, tanpa menunggu alat kejut jantung (AED). Dalam algoritma bantuan hidup dasar untuk penolong awam, langkah keempat adalah C (Circulation/Compression/Kompresi dada), dengan melakukan kompresi dada yang tepat.\nCara kompresi dada dilakukan dengan meletakkan tumit salah satu tangan di tengah dada korban (setengah bawah tulang dada), tangan lainnya di atas tangan pertama, dengan jari-jari saling mengunci. Lengan harus lurus saat menekan dada. Kecepatan 100-120 kai/menit, kedalaman 5-6 cm. Setelah setiap tekanan, biarkan dada kembali mengembang sepenuhnya."
       },
       {
         text: "Segera melakukan kompresi dada, dengan meletakkan kedua tangan di tengah dada. Tekan dengan kecepatan 80-100 kali/menit, kedalaman 4-5 cm.",
         points: -25,
-        explanation: "Langkah sudah tepat, tetapi cara kompresi dada kurang tepat.\nTindakan kompresi dada dilakukan segera, tanpa menunggu alat kejut jantung (AED). Dalam algoritma bantuan hidup dasar untuk penolong awam, langkah keempat adalah C (Circulation/Compression/Kompresi dada), dengan melakukan kompresi dada yang tepat.\nCara kompresi dada yang tepat dilakukan dengan meletakkan tumit salah satu tangan di tengah dada korban (setengah bawah tulang dada), tangan lainnya di atas tangan pertama, dengan jari-jari saling mengunci. Lengan harus lurus saat menekan dada. Kecepatan 100-120 kai/menit, kedalaman 5-6 cm. Setelah setiap tekanan, biarkan dada kembali mengembang sepenuhnya.\n*Berikan gambar kompresi dada"
+        explanation: "Langkah sudah tepat, tetapi cara kompresi dada kurang tepat.\nTindakan kompresi dada dilakukan segera, tanpa menunggu alat kejut jantung (AED). Dalam algoritma bantuan hidup dasar untuk penolong awam, langkah keempat adalah C (Circulation/Compression/Kompresi dada), dengan melakukan kompresi dada yang tepat.\nCara kompresi dada yang tepat dilakukan dengan meletakkan tumit salah satu tangan di tengah dada korban (setengah bawah tulang dada), tangan lainnya di atas tangan pertama, dengan jari-jari saling mengunci. Lengan harus lurus saat menekan dada. Kecepatan 100-120 kai/menit, kedalaman 5-6 cm. Setelah setiap tekanan, biarkan dada kembali mengembang sepenuhnya."
       }
     ]
   },
   {
     stage: 6,
-    title: "Tahap 6: Alat kejut jantung tiba di lokasi korban, apa yang anda lakukan?",
+    title: "Alat kejut jantung tiba di lokasi korban, apa yang anda lakukan?",
     narrative: "",
     options: [
       {
         text: "Melanjutkan kompresi dada, dan menunda menggunakan alat kejut jantung sampai petugas medis datang.",
         points: -25,
-        explanation: "Langkah kurang tepat, karena menunda menggunakan alat kejut jantung, yang dapat menyebabkan tertundanya deteksi irama jantung yang memerlukan pemberian kejut jantung.\nTindakan penggunaan alat kejut jantung (AED/ Automated External Defibrillator) saat alat tersedia merupakan langkah terakhir dalam algoritma bantuan hidup dasar untuk penolong awam, dan merupakan bagian dari C (Circulation/Compression/Kompresi dada). AED dinyalakan dengan meminta bantuan orang lain, supaya kompresi dada tidak terhenti dan mengatasi Bystander Effect. Setelah AED menyala, ikuti instruksi dari AED. Jangan ada yang menyentuh korban saat AED mengeluarkan instruksi “Analyzing rhythm” dan “Shock advised. Stand clear.“ Kompresi dada tetap dilanjutkan sesuai instruksi AED, dan sampai bantuan medis datang.\n*Berikan gambar AED"
+        explanation: "Langkah kurang tepat, karena menunda menggunakan alat kejut jantung, yang dapat menyebabkan tertundanya deteksi irama jantung yang memerlukan pemberian kejut jantung.\nTindakan penggunaan alat kejut jantung (AED/ Automated External Defibrillator) saat alat tersedia merupakan langkah terakhir dalam algoritma bantuan hidup dasar untuk penolong awam, dan merupakan bagian dari C (Circulation/Compression/Kompresi dada). AED dinyalakan dengan meminta bantuan orang lain, supaya kompresi dada tidak terhenti dan mengatasi Bystander Effect. Setelah AED menyala, ikuti instruksi dari AED. Jangan ada yang menyentuh korban saat AED mengeluarkan instruksi “Analyzing rhythm” dan “Shock advised. Stand clear.“ Kompresi dada tetap dilanjutkan sesuai instruksi AED, dan sampai bantuan medis datang."
       },
       {
         text: "Menunjuk satu orang untuk segera menyalakan alat kejut jantung dan memasang ped langsung ke dada korban.",
         points: 0,
-        explanation: "Langkah ini 100% tepat. Tindakan penggunaan alat kejut jantung (AED/ Automated External Defibrillator) saat alat tersedia merupakan langkah terakhir dalam algoritma bantuan hidup dasar untuk penolong awam, dan merupakan bagian dari C (Circulation/Compression/Kompresi dada). AED dinyalakan dengan meminta bantuan orang lain, supaya kompresi dada tidak terhenti dan mengatasi Bystander Effect. Setelah AED menyala, ikuti instruksi dari AED. Jangan ada yang menyentuh korban saat AED mengeluarkan instruksi “Analyzing rhythm” dan “Shock advised. Stand clear.“ Kompresi dada tetap dilanjutkan sesuai instruksi AED, dan sampai bantuan medis datang.\n*Berikan gambar AED"
+        explanation: "Langkah ini 100% tepat. Tindakan penggunaan alat kejut jantung (AED/ Automated External Defibrillator) saat alat tersedia merupakan langkah terakhir dalam algoritma bantuan hidup dasar untuk penolong awam, dan merupakan bagian dari C (Circulation/Compression/Kompresi dada). AED dinyalakan dengan meminta bantuan orang lain, supaya kompresi dada tidak terhenti dan mengatasi Bystander Effect. Setelah AED menyala, ikuti instruksi dari AED. Jangan ada yang menyentuh korban saat AED mengeluarkan instruksi “Analyzing rhythm” dan “Shock advised. Stand clear.“ Kompresi dada tetap dilanjutkan sesuai instruksi AED, dan sampai bantuan medis datang."
       },
       {
         text: "Segera menyalakan alat kejut jantung dan memasang ped di atas pakaian korban.",
         points: -40,
-        explanation: "Langkah tidak tepat, karena  tidak meminta bantuan untuk menyalakan alat kejut jantung, sehingga kompresi dada terhenti dan tidak mengatasi Bystander Effect.. Cara pemasangan ped juga kurang tepat jika diletakkan di atas pakaian korban karena alat tidak mampu mendeteksi irama listrik jantung, sehingga alat dapat memberikan instruksi yang salah.\nTindakan penggunaan alat kejut jantung (AED/ Automated External Defibrillator) saat alat tersedia merupakan langkah terakhir dalam algoritma bantuan hidup dasar untuk penolong awam, dan merupakan bagian dari C (Circulation/Compression/Kompresi dada). AED dinyalakan dengan meminta bantuan orang lain, supaya kompresi dada tidak terhenti dan mengatasi Bystander Effect. Setelah AED menyala, ikuti instruksi dari AED. Jangan ada yang menyentuh korban saat AED mengeluarkan instruksi “Analyzing rhythm” dan “Shock advised. Stand clear.“ Kompresi dada tetap dilanjutkan sesuai instruksi AED, dan sampai bantuan medis datang.\n*Berikan gambar AED"
+        explanation: "Langkah tidak tepat, karena  tidak meminta bantuan untuk menyalakan alat kejut jantung, sehingga kompresi dada terhenti dan tidak mengatasi Bystander Effect.. Cara pemasangan ped juga kurang tepat jika diletakkan di atas pakaian korban karena alat tidak mampu mendeteksi irama listrik jantung, sehingga alat dapat memberikan instruksi yang salah.\nTindakan penggunaan alat kejut jantung (AED/ Automated External Defibrillator) saat alat tersedia merupakan langkah terakhir dalam algoritma bantuan hidup dasar untuk penolong awam, dan merupakan bagian dari C (Circulation/Compression/Kompresi dada). AED dinyalakan dengan meminta bantuan orang lain, supaya kompresi dada tidak terhenti dan mengatasi Bystander Effect. Setelah AED menyala, ikuti instruksi dari AED. Jangan ada yang menyentuh korban saat AED mengeluarkan instruksi “Analyzing rhythm” dan “Shock advised. Stand clear.“ Kompresi dada tetap dilanjutkan sesuai instruksi AED, dan sampai bantuan medis datang."
       }
     ]
   }

@@ -3,9 +3,21 @@
   import { playWinSound, playLoseSound } from "../soundEffects.js";
   import winBg from "../../assets/mission-complete.webp";
   import loseBg from "../../assets/mission-failed.webp";
+  import kompresiDadaImg from "../../assets/kompresi-dada.webp";
+  import aedImg from "../../assets/aed.webp";
 
   export let score;
   export let isWin;
+
+  let currentStep = 0;
+
+  function nextStep() {
+    if (currentStep < 5) {
+      currentStep++;
+    } else {
+      handleRestart();
+    }
+  }
 
   const dispatch = createEventDispatcher();
 
@@ -25,73 +37,204 @@
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <div
   class="result-screen pop-in"
-  style="background-image: url('{isWin ? winBg : loseBg}');"
-  on:click={handleRestart}
-  on:keydown={(e) => e.key === "Enter" && handleRestart()}
+  style="background-image: url('{isWin || currentStep === 5 ? winBg : loseBg}');"
+  on:click={nextStep}
+  on:keydown={(e) => e.key === "Enter" && nextStep()}
 >
-  <div class="top-floating-section">
-    <div class="result-icon">
-      {#if isWin}
-        <div class="icon-circle win-icon">🏆</div>
-      {:else}
-        <div class="icon-circle lose-icon">🚑</div>
-      {/if}
-    </div>
-
-    <div class="score-floating {isWin ? 'score-win' : 'score-lose'}">
-      <span class="score-label">SKOR ANDA</span>
-      <span class="score-value">{score}</span>
-    </div>
-  </div>
-
-  <div class="spacer"></div>
-
-  <div class="bottom-modal-box" on:click|stopPropagation>
-    <div class="modal-body" style="max-height: 60vh; overflow-y: auto;">
-      <h1 class="result-title {isWin ? 'title-win' : 'title-lose'}">
-        {isWin ? "Penyelamatan Berhasil!" : "Game Over!"}
-      </h1>
-
-      <div class="message-section">
+  <div class="top-wrapper">
+    <div class="top-floating-section">
+      <div class="result-icon">
         {#if isWin}
-          <p>
-            Luar biasa! Bantuan medis tiba dan korban berhasil bertahan hidup
-            berkat tindakan cepat dan tepat yang Anda lakukan.
-          </p>
+          <div class="icon-circle win-icon">🏆</div>
         {:else}
-          <p>
-            Sayang sekali, korban tidak dapat diselamatkan. Setiap detik sangat
-            berharga. Mari pelajari prosedurnya dan coba lagi!
-          </p>
+          <div class="icon-circle lose-icon">🚑</div>
         {/if}
+      </div>
 
-        <div class="conclusion-section">
-          <h3 class="conclusion-title">Act Now, Safe a Life <br><span class="conclusion-subtitle">(AHA, 2025)</span></h3>
-          <p class="conclusion-heading">Alur bantuan hidup dasar untuk penolong awam</p>
-          <ol class="conclusion-list">
-            <li><strong>D (Danger/Bahaya)</strong> &rarr; prinsip 3A: Aman Diri, Aman Korban, Aman Lingkungan</li>
-            <li><strong>R (Response/Respon)</strong>
-              <ul>
-                <li>Menilai kesadaran &rarr; menepuk kedua bahu korban dan memanggil dengan suara lantang</li>
-                <li>Menilai napas &rarr; bernafas normal, tidak bernapas, atau hanya megap-megap (gasping).</li>
-              </ul>
-            </li>
-            <li><strong>S (Shout for Help/Panggil Bantuan)</strong> &rarr; menunjuk orang secara spesifik untuk menghuungi ambulans dan mengambil alat kejut jantung (AED).
-              <p class="conclusion-note">*Tindakan menunjuk secara spesifik juga merupakan implementasi psikologi sosial untuk memecahkan Bystander Effect, karena dapat menjadikan tanggung jawab lebih jelas dan personal, sehingga kemungkinan orang tersebut bertindak lebih besar.</p>
-            </li>
-            <li><strong>C (Circulation/Compression/Kompresi dada)</strong>
-              <p class="conclusion-step">&rarr; Cara kompresi dada yang tepat : Letakkan tumit salah satu tangan di tengah dada korban (setengah bawah tulang dada), tangan lainnya di atas tangan pertama, dengan jari-jari saling mengunci. Lengan harus lurus saat menekan dada. Kecepatan 100-120 kai/menit, kedalaman 5-6 cm. Setelah setiap tekanan, biarkan dada kembali mengembang sepenuhnya.</p>
-              <p class="conclusion-note">*Berikan gambar kompresi dada</p>
-              <p class="conclusion-step">&rarr; AED dinyalakan dengan meminta bantuan orang lain, supaya kompresi dada tidak terhenti dan mengatasi Bystander Effect. Setelah AED menyala, ikuti instruksi dari AED. Jangan ada yang menyentuh korban saat AED mengeluarkan instruksi &ldquo;Analyzing rhythm&rdquo; dan &ldquo;Shock advised. Stand clear.&ldquo; Kompresi dada tetap dilanjutkan sesuai instruksi AED, dan sampai bantuan medis datang.</p>
-              <p class="conclusion-note">*Berikan gambar AED</p>
-            </li>
-          </ol>
-        </div>
+      <div class="score-floating {isWin ? 'score-win' : 'score-lose'}">
+        <span class="score-label">SKOR ANDA</span>
+        <span class="score-value">{score}</span>
       </div>
     </div>
+
+    <div class="click-prompt fade-in">
+      <span class="pulse-text"
+        >{currentStep < 5
+          ? "Klik layar untuk melanjutkan"
+          : "Klik layar untuk main lagi"}</span
+      >
+    </div>
   </div>
 
-  <div class="bottom-prompt">Klik untuk main lagi</div>
+  <div class="bottom-modal-box">
+    <div class="modal-body" style="max-height: 65vh; overflow-y: auto;">
+      {#if currentStep === 0}
+        <h1 class="result-title {isWin ? 'title-win' : 'title-lose'}">
+          {isWin ? "Penyelamatan Berhasil!" : "Game Over!"}
+        </h1>
+
+        <div class="message-section fade-in">
+          {#if isWin}
+            <p>
+              Luar biasa! Bantuan medis tiba dan korban berhasil bertahan hidup
+              berkat tindakan cepat dan tepat yang Anda lakukan.
+            </p>
+          {:else}
+            <p>
+              Sayang sekali, korban tidak dapat diselamatkan. Setiap detik
+              sangat berharga. Mari pelajari prosedurnya dan coba lagi!
+            </p>
+          {/if}
+        </div>
+      {:else if currentStep === 1}
+        <div
+          class="conclusion-section fade-in"
+          style="margin-top: 0; padding-top: 0; border-top: none;"
+        >
+          <h3 class="conclusion-title">
+            Act Now, Safe a Life <br /><span class="conclusion-subtitle"
+              >(AHA, 2025)</span
+            >
+          </h3>
+          <p class="conclusion-heading">
+            Alur bantuan hidup dasar untuk penolong awam
+          </p>
+
+          <div class="page-content">
+            <ol class="conclusion-list">
+              <li>
+                <strong>D (Danger/Bahaya)</strong> &rarr; prinsip 3A: Aman Diri,
+                Aman Korban, Aman Lingkungan
+              </li>
+              <li>
+                <strong>R (Response/Respon)</strong>
+                <ul>
+                  <li>
+                    Menilai kesadaran &rarr; menepuk kedua bahu korban dan
+                    memanggil dengan suara lantang
+                  </li>
+                  <li>
+                    Menilai napas &rarr; bernafas normal, tidak bernapas, atau
+                    hanya megap-megap (gasping).
+                  </li>
+                </ul>
+              </li>
+            </ol>
+          </div>
+        </div>
+      {:else if currentStep === 2}
+        <div
+          class="conclusion-section fade-in"
+          style="margin-top: 0; padding-top: 0; border-top: none;"
+        >
+          <h3 class="conclusion-title">
+            Act Now, Safe a Life <br /><span class="conclusion-subtitle"
+              >(AHA, 2025)</span
+            >
+          </h3>
+          <p class="conclusion-heading">
+            Alur bantuan hidup dasar untuk penolong awam
+          </p>
+
+          <div class="page-content">
+            <ol class="conclusion-list" start="3">
+              <li>
+                <strong>S (Shout for Help/Panggil Bantuan)</strong> &rarr;
+                menunjuk orang secara spesifik untuk menghuungi ambulans dan
+                mengambil alat kejut jantung (AED).
+                <p class="conclusion-note">
+                  *Tindakan menunjuk secara spesifik juga merupakan implementasi
+                  psikologi sosial untuk memecahkan <span
+                    class="bystander-highlight">Bystander Effect</span
+                  >, karena dapat menjadikan tanggung jawab lebih jelas dan
+                  personal, sehingga kemungkinan orang tersebut bertindak lebih
+                  besar.
+                </p>
+              </li>
+            </ol>
+          </div>
+        </div>
+      {:else if currentStep === 3}
+        <div
+          class="conclusion-section fade-in"
+          style="margin-top: 0; padding-top: 0; border-top: none;"
+        >
+          <h3 class="conclusion-title">
+            Act Now, Safe a Life <br /><span class="conclusion-subtitle"
+              >(AHA, 2025)</span
+            >
+          </h3>
+          <p class="conclusion-heading">
+            Alur bantuan hidup dasar untuk penolong awam
+          </p>
+
+          <div class="page-content">
+            <ol class="conclusion-list" start="4">
+              <li>
+                <strong>C (Circulation/Compression/Kompresi dada)</strong>
+                <p class="conclusion-step">
+                  &rarr; Cara kompresi dada yang tepat : Letakkan tumit salah
+                  satu tangan di tengah dada korban (setengah bawah tulang
+                  dada), tangan lainnya di atas tangan pertama, dengan jari-jari
+                  saling mengunci. Lengan harus lurus saat menekan dada.
+                  Kecepatan 100-120 kai/menit, kedalaman 5-6 cm. Setelah setiap
+                  tekanan, biarkan dada kembali mengembang sepenuhnya.
+                </p>
+                <img src={kompresiDadaImg} alt="Gambar Kompresi Dada" class="content-image fade-in" />
+              </li>
+            </ol>
+          </div>
+        </div>
+      {:else if currentStep === 4}
+        <div
+          class="conclusion-section fade-in"
+          style="margin-top: 0; padding-top: 0; border-top: none;"
+        >
+          <h3 class="conclusion-title">
+            Act Now, Safe a Life <br /><span class="conclusion-subtitle"
+              >(AHA, 2025)</span
+            >
+          </h3>
+          <p class="conclusion-heading">
+            Alur bantuan hidup dasar untuk penolong awam (Lanjutan Poin 4)
+          </p>
+
+          <div class="page-content">
+            <div class="conclusion-list">
+              <p class="conclusion-step">
+                &rarr; AED dinyalakan dengan meminta bantuan orang lain,
+                supaya kompresi dada tidak terhenti dan mengatasi <span
+                  class="bystander-highlight">Bystander Effect</span
+                >. Setelah AED menyala, ikuti instruksi dari AED. Jangan ada
+                yang menyentuh korban saat AED mengeluarkan instruksi
+                &ldquo;Analyzing rhythm&rdquo; dan &ldquo;Shock advised. Stand
+                clear.&ldquo; Kompresi dada tetap dilanjutkan sesuai instruksi
+                AED, dan sampai bantuan medis datang.
+              </p>
+              <img src={aedImg} alt="Gambar Alat Kejut Jantung (AED)" class="content-image fade-in" />
+            </div>
+          </div>
+        </div>
+      {:else if currentStep === 5}
+        <div
+          class="conclusion-section fade-in"
+          style="margin-top: 0; padding-top: 0; border-top: none; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;"
+        >
+          <h3 class="conclusion-title" style="margin-bottom: 1rem; font-size: 1.2rem;">
+            Pelajari Lebih Lanjut
+          </h3>
+          <p class="conclusion-heading" style="margin-bottom: 1.5rem; font-size: 0.95rem; color: #334155; font-weight: 500; line-height: 1.5;">
+            Ingin melihat simulasi nyata tentang bagaimana memberikan Bantuan Hidup Dasar (BHD)? Tonton video pembelajaran dari AHA berikut ini!
+          </p>
+
+          <a href="https://www.youtube.com/watch?v=M4ACYp75mjU" target="_blank" class="btn-youtube pop-in" on:click|stopPropagation>
+            <span style="font-size: 1.2rem; margin-right: 0.5rem;">🎬</span> TONTON VIDEO DI YOUTUBE
+          </a>
+        </div>
+      {/if}
+
+    </div>
+  </div>
 </div>
 
 <style>
@@ -107,11 +250,20 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-between;
     z-index: 1000;
     cursor: pointer;
     background-color: rgba(0, 0, 0, 0.15); /* Very slight dimming */
     background-blend-mode: overlay;
-    padding: 1.5rem 1rem 0;
+    padding: 3rem 1rem 2rem 1rem; /* 3rem top, 2rem bottom (~1cm) */
+  }
+
+  .top-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    width: 100%;
   }
 
   .top-floating-section {
@@ -119,10 +271,9 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    gap: 1.5rem;
+    gap: 1rem;
     animation: slideDown 0.5s ease-out;
     width: 100%;
-    margin-top: 1rem;
   }
 
   @keyframes slideDown {
@@ -141,7 +292,7 @@
   }
 
   .icon-circle {
-    font-size: 5rem;
+    font-size: 3rem;
     filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.8));
   }
 
@@ -157,17 +308,17 @@
   }
 
   .score-label {
-    font-size: 1.2rem;
+    font-size: 0.9rem;
     font-weight: 800;
     color: white;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 1);
-    margin-bottom: -0.5rem;
+    margin-bottom: -0.2rem;
     text-transform: uppercase;
     letter-spacing: 2px;
   }
 
   .score-value {
-    font-size: 6.5rem;
+    font-size: 3.5rem;
     font-weight: 900;
     line-height: 1;
     text-shadow:
@@ -184,16 +335,11 @@
     -webkit-text-stroke: 2px #000;
   }
 
-  .spacer {
-    flex-grow: 1;
-    min-height: 2rem;
-  }
-
   .bottom-modal-box {
     width: 100%;
-    max-width: 650px;
+    max-width: 500px;
     background: #ffffff;
-    border: 3px solid #38bdf8;
+    border: 2px solid #38bdf8;
     box-shadow:
       0 0 20px rgba(56, 189, 248, 0.4),
       0 10px 40px rgba(0, 0, 0, 0.5);
@@ -202,7 +348,6 @@
     flex-direction: column;
     cursor: default;
     animation: slideUp 0.5s ease-out;
-    margin-bottom: 3.5rem;
   }
 
   @keyframes slideUp {
@@ -248,16 +393,16 @@
   }
 
   .modal-body {
-    padding: 1.5rem;
+    padding: 0.8rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1rem;
+    gap: 0.2rem;
   }
 
   .result-title {
-    font-size: clamp(1.2rem, 5vw, 1.8rem);
-    margin: 0;
+    font-size: clamp(1.1rem, 4vw, 1.4rem);
+    margin: 0 0 0.2rem 0;
     text-transform: uppercase;
     text-align: center;
     color: #0284c7; /* A slightly darker light-blue to ensure it's readable on white, matching the vibe */
@@ -268,11 +413,12 @@
   }
 
   .message-section {
-    font-size: 1.1rem;
+    font-size: 0.9rem;
     font-weight: 500;
-    line-height: 1.6;
+    line-height: 1.4;
     color: #334155;
     text-align: center;
+    margin-bottom: 0;
   }
 
   .bottom-prompt {
@@ -319,86 +465,153 @@
 
   @media (max-width: 768px) {
     .icon-circle {
-      font-size: 4rem;
+      font-size: 2.5rem;
     }
     .score-value {
-      font-size: 5rem;
+      font-size: 3rem;
     }
     .top-floating-section {
-      gap: 1rem;
+      gap: 0.8rem;
     }
     .score-label {
-      font-size: 1rem;
+      font-size: 0.8rem;
     }
     .bottom-modal-box {
       width: 95%;
-      margin-bottom: 3rem;
     }
     .modal-body {
-      padding: 1.2rem;
-    }
-    .message-section {
-      font-size: 1rem;
-    }
-    .bottom-prompt {
-      bottom: 15px;
-      font-size: 0.9rem;
+      padding: 0.6rem;
     }
   }
 
   /* Conclusion Styles */
   .conclusion-section {
-    margin-top: 2rem;
-    padding-top: 1.5rem;
-    border-top: 2px dashed #cbd5e1;
     text-align: left;
   }
   .conclusion-title {
     color: #0f172a;
-    font-size: 1.3rem;
+    font-size: 1rem;
     font-weight: 800;
     text-transform: uppercase;
     text-align: center;
-    margin-bottom: 1rem;
+    margin-bottom: 0.2rem;
     line-height: 1.2;
   }
   .conclusion-subtitle {
-    font-size: 0.9rem;
+    font-size: 0.75rem;
     color: #64748b;
     font-weight: 600;
   }
   .conclusion-heading {
     font-weight: 700;
     color: #0284c7;
-    margin-bottom: 0.5rem;
-    font-size: 1.1rem;
+    margin-bottom: 0.1rem;
+    font-size: 0.9rem;
   }
   .conclusion-list {
     margin: 0;
-    padding-left: 1.5rem;
-    font-size: 0.95rem;
-    line-height: 1.5;
+    padding-left: 1rem;
+    font-size: 0.8rem;
+    line-height: 1.25;
     color: #334155;
   }
   .conclusion-list li {
-    margin-bottom: 0.8rem;
+    margin-bottom: 0.4rem;
   }
   .conclusion-list ul {
-    margin-top: 0.3rem;
-    padding-left: 1.2rem;
+    margin-top: 0.1rem;
+    padding-left: 0.8rem;
   }
   .conclusion-list ul li {
-    margin-bottom: 0.3rem;
+    margin-bottom: 0.1rem;
   }
   .conclusion-note {
     font-style: italic;
     color: #64748b;
-    font-size: 0.85rem;
-    margin-top: 0.4rem;
-    margin-bottom: 0.4rem;
+    font-size: 0.75rem;
+    margin-top: 0.2rem;
+    margin-bottom: 0.2rem;
   }
   .conclusion-step {
-    margin-top: 0.4rem;
-    margin-bottom: 0.2rem;
+    margin-top: 0.1rem;
+    margin-bottom: 0.1rem;
+  }
+  .bystander-highlight {
+    font-weight: 700;
+    color: #2563eb;
+  }
+
+  .click-prompt {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  .pulse-text {
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    animation: pulse 1.5s infinite;
+    text-align: center;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8), 0 0 10px rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.35);
+    padding: 0.6rem 1.2rem;
+    border-radius: 99px;
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  }
+
+  .content-image {
+    width: 100%;
+    max-height: 110px;
+    object-fit: contain;
+    border-radius: 8px;
+    margin: 0.3rem 0;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
+  }
+  .slide-in-right {
+    animation: slideInRight 0.3s ease-out forwards;
+  }
+  @keyframes slideInRight {
+    from {
+      opacity: 0;
+      transform: translateX(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .btn-youtube {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background: #ef4444;
+    border: 3px solid #991b1b;
+    border-radius: 100px;
+    padding: 0.6rem 1.2rem;
+    color: white;
+    font-weight: 800;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    text-decoration: none;
+    box-shadow: 0 4px 0 #991b1b, 0 8px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.1s;
+    width: 90%;
+    max-width: 300px;
+  }
+  .btn-youtube:hover {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 #991b1b, 0 4px 10px rgba(0, 0, 0, 0.2);
+    background: #f87171;
+  }
+  .btn-youtube:active {
+    transform: translateY(4px);
+    box-shadow: 0 0 0 #991b1b, 0 0 0 rgba(0, 0, 0, 0.2);
   }
 </style>

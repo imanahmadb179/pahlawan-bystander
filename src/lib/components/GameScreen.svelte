@@ -16,6 +16,8 @@
   let isBgAnimating = false;
   let bgUrl = '';
   let effectType = '';
+  let showFlash = false;
+  let showParticles = false;
 
   let animateKey = stageData.stage;
   let shuffledOptions = [];
@@ -83,10 +85,13 @@
     if (timerInterval) clearInterval(timerInterval);
     
     isBgAnimating = true;
+    showFlash = true;
+    showParticles = false;
     
     let letter = option.originalId;
     let stage = stageData.stage;
     
+    // Try WebP first, fallback to PNG automatically via <img> onerror
     bgUrl = new URL(`../../assets/tahap-${stage}-jawaban-${letter}.webp`, import.meta.url).href;
     
     if (option.points === 0) {
@@ -96,10 +101,14 @@
     } else {
       effectType = 'warning';
     }
+
+    // Trigger flash then particles
+    setTimeout(() => { showFlash = false; showParticles = true; }, 400);
     
     setTimeout(() => {
       isBgAnimating = false;
       isRevealing = true;
+      showParticles = false;
       selectedIndex = index;
       correctIndex = shuffledOptions.findIndex(o => o.points === 0);
       
@@ -112,14 +121,31 @@
 
 {#if bgUrl}
   <div class="dynamic-bg-layer fade-in {effectType}">
-    <div class="bg-image" style="background-image: url('{bgUrl}');"></div>
+    <img
+      class="bg-image-img"
+      src={bgUrl}
+      on:error={() => { bgUrl = bgUrl.replace('.webp', '.png'); }}
+      alt=""
+    />
     <div class="bg-overlay"></div>
+  </div>
+{/if}
+
+{#if showFlash}
+  <div class="screen-flash {effectType}-flash"></div>
+{/if}
+
+{#if showParticles && effectType === 'success'}
+  <div class="particles-container">
+    {#each Array(12) as _, i}
+      <div class="particle" style="--i:{i}; --r:{Math.random()}; --d:{0.3 + Math.random() * 1.2}s;"></div>
+    {/each}
   </div>
 {/if}
 
 {#key animateKey}
 <div class="game-layout fade-in">
-  <div class="timer-badge {timeLeft <= 5 ? 'timer-danger' : ''}">
+  <div class="timer-badge {timeLeft <= 5 ? 'timer-danger' : ''} {isBgAnimating || isRevealing ? 'fade-out-hidden' : ''}">
     <span class="timer-icon">⏳</span>
     <span class="timer-text">{timeLeft}s</span>
   </div>
@@ -136,7 +162,7 @@
     {/each}
   </div>
 
-  <div class="dialogue-container slide-up">
+  <div class="dialogue-container {isBgAnimating || isRevealing ? 'fade-out-hidden' : 'slide-up'}">
     <div class="dialogue-box">
       <h3 class="dialogue-title">{stageData.title}</h3>
       <div class="dialogue-text"></div>
@@ -147,6 +173,12 @@
 {/key}
 
 <style>
+  .fade-out-hidden {
+    opacity: 0 !important;
+    pointer-events: none !important;
+    transition: opacity 0.3s ease;
+  }
+
   .timer-badge {
     position: absolute;
     top: 1.5rem;
@@ -484,12 +516,11 @@
     overflow: hidden;
   }
   
-  .bg-image {
+  .bg-image-img {
     width: 100%;
     height: 100%;
-    background-size: cover;
-    background-position: center bottom;
-    background-repeat: no-repeat;
+    object-fit: cover;
+    object-position: center bottom;
   }
   
   .bg-overlay {
@@ -528,21 +559,72 @@
 
   @keyframes cinematicZoom {
     0% { transform: scale(1); filter: brightness(1); }
-    100% { transform: scale(1.15); filter: brightness(1.2); }
+    50% { transform: scale(1.1); filter: brightness(1.3) saturate(1.4); }
+    100% { transform: scale(1.18); filter: brightness(1.2) saturate(1.2); }
   }
 
   @keyframes slightZoom {
-    0% { transform: scale(1); filter: brightness(1); }
-    100% { transform: scale(1.05); filter: brightness(0.7); }
+    0% { transform: scale(1); filter: brightness(1) saturate(1); }
+    20% { transform: scale(1.02); filter: brightness(0.9) saturate(0.8); }
+    100% { transform: scale(1.06); filter: brightness(0.65) saturate(0.5); }
   }
 
   @keyframes scaryShake {
-    0% { transform: scale(1) translate(0, 0); filter: grayscale(0) brightness(1); }
-    10% { transform: scale(1.1) translate(-5px, 5px); filter: grayscale(0.2) brightness(0.9); }
-    20% { transform: scale(1.1) translate(5px, -5px); filter: grayscale(0.4) brightness(0.8); }
-    30% { transform: scale(1.1) translate(-5px, -5px); filter: grayscale(0.6) brightness(0.7); }
-    40% { transform: scale(1.1) translate(5px, 5px); filter: grayscale(0.7) brightness(0.6); }
-    50% { transform: scale(1.1) translate(-3px, 3px); filter: grayscale(0.8) brightness(0.5); }
-    100% { transform: scale(1.15) translate(0, 0); filter: grayscale(1) brightness(0.3); }
+    0%   { transform: scale(1)    translate(0, 0);     filter: grayscale(0)   brightness(1); }
+    8%   { transform: scale(1.08) translate(-8px, 6px); filter: grayscale(0.1) brightness(0.95); }
+    16%  { transform: scale(1.12) translate(8px, -6px); filter: grayscale(0.3) brightness(0.85); }
+    24%  { transform: scale(1.12) translate(-6px, -4px);filter: grayscale(0.5) brightness(0.75); }
+    32%  { transform: scale(1.12) translate(6px, 4px);  filter: grayscale(0.65) brightness(0.65); }
+    42%  { transform: scale(1.1)  translate(-4px, 3px); filter: grayscale(0.8) brightness(0.5); }
+    55%  { transform: scale(1.12) translate(3px, -2px); filter: grayscale(0.9) brightness(0.4) sepia(0.5); }
+    100% { transform: scale(1.18) translate(0, 0);      filter: grayscale(1)   brightness(0.25) sepia(0.8); }
+  }
+
+  /* Screen Flash Effect */
+  .screen-flash {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    pointer-events: none;
+    animation: flashOut 0.4s ease-out forwards;
+  }
+  .success-flash { background: rgba(134, 239, 172, 0.8); }
+  .warning-flash { background: rgba(253, 224, 71, 0.7); }
+  .danger-flash  { background: rgba(252, 165, 165, 0.85); }
+
+  @keyframes flashOut {
+    0%   { opacity: 1; }
+    100% { opacity: 0; }
+  }
+
+  /* Particle Effect for Correct Answers */
+  .particles-container {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 90;
+    overflow: hidden;
+  }
+  .particle {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    animation: particleBurst var(--d, 0.8s) ease-out forwards;
+    background: hsl(calc(var(--i, 0) * 30), 90%, 55%);
+  }
+  @keyframes particleBurst {
+    0%   { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+    100% {
+      transform:
+        translate(
+          calc(-50% + cos(calc(var(--i, 0) * 30deg)) * 200px),
+          calc(-50% + sin(calc(var(--i, 0) * 30deg)) * -250px)
+        )
+        scale(0);
+      opacity: 0;
+    }
   }
 </style>
