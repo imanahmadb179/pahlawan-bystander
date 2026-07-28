@@ -57,7 +57,8 @@
   $: {
     if (typeof document !== 'undefined') {
       if (currentStageIndex === 0 || !gameStarted || showWelcome || showResult) {
-        document.body.style.setProperty('--global-bg', `url('/src/assets/bg-baru.webp')`);
+        const defaultBgUrl = new URL('./assets/bg-baru.webp', import.meta.url).href;
+        document.body.style.setProperty('--global-bg', `url('${defaultBgUrl}')`);
       } else {
         const prevStageData = gameData[currentStageIndex - 1];
         const correctIndex = prevStageData.options.findIndex(o => o.points === 0);
