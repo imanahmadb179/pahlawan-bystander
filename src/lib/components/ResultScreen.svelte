@@ -37,7 +37,9 @@
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <div
   class="result-screen pop-in"
-  style="background-image: url('{isWin || currentStep === 4 ? winBg : loseBg}');"
+  style="background-image: url('{isWin || currentStep === 4
+    ? winBg
+    : loseBg}');"
   on:click={nextStep}
   on:keydown={(e) => e.key === "Enter" && nextStep()}
 >
@@ -92,7 +94,7 @@
           style="margin-top: 0; padding-top: 0; border-top: none;"
         >
           <h3 class="conclusion-title">
-            Act Now, Safe a Life <br /><span class="conclusion-subtitle"
+            Act Now, Save a Life <br /><span class="conclusion-subtitle"
               >(AHA, 2025)</span
             >
           </h3>
@@ -128,7 +130,7 @@
           style="margin-top: 0; padding-top: 0; border-top: none;"
         >
           <h3 class="conclusion-title">
-            Act Now, Safe a Life <br /><span class="conclusion-subtitle"
+            Act Now, Save a Life <br /><span class="conclusion-subtitle"
               >(AHA, 2025)</span
             >
           </h3>
@@ -160,7 +162,7 @@
           style="margin-top: 0; padding-top: 0; border-top: none;"
         >
           <h3 class="conclusion-title">
-            Act Now, Safe a Life <br /><span class="conclusion-subtitle"
+            Act Now, Save a Life <br /><span class="conclusion-subtitle"
               >(AHA, 2025)</span
             >
           </h3>
@@ -180,7 +182,11 @@
                   Kecepatan 100-120 kai/menit, kedalaman 5-6 cm. Setelah setiap
                   tekanan, biarkan dada kembali mengembang sepenuhnya.
                 </p>
-                <img src={kompresiDadaImg} alt="Gambar Kompresi Dada" class="content-image fade-in" />
+                <img
+                  src={kompresiDadaImg}
+                  alt="Gambar Kompresi Dada"
+                  class="content-image fade-in"
+                />
               </li>
             </ol>
           </div>
@@ -191,7 +197,7 @@
           style="margin-top: 0; padding-top: 0; border-top: none;"
         >
           <h3 class="conclusion-title">
-            Act Now, Safe a Life <br /><span class="conclusion-subtitle"
+            Act Now, Save a Life <br /><span class="conclusion-subtitle"
               >(AHA, 2025)</span
             >
           </h3>
@@ -202,8 +208,8 @@
           <div class="page-content">
             <div class="conclusion-list">
               <p class="conclusion-step">
-                &rarr; AED dinyalakan dengan meminta bantuan orang lain,
-                supaya kompresi dada tidak terhenti dan mengatasi <span
+                &rarr; AED dinyalakan dengan meminta bantuan orang lain, supaya
+                kompresi dada tidak terhenti dan mengatasi <span
                   class="bystander-highlight">Bystander Effect</span
                 >. Setelah AED menyala, ikuti instruksi dari AED. Jangan ada
                 yang menyentuh korban saat AED mengeluarkan instruksi
@@ -211,11 +217,15 @@
                 clear.&ldquo; Kompresi dada tetap dilanjutkan sesuai instruksi
                 AED, dan sampai bantuan medis datang.
               </p>
-              <img src={aedImg} alt="Gambar Alat Kejut Jantung (AED)" class="content-image fade-in" />
+              <img
+                src={aedImg}
+                alt="Gambar Alat Kejut Jantung (AED)"
+                class="content-image fade-in"
+              />
             </div>
           </div>
         </div>
-      <!-- {:else if currentStep === 5}
+        <!-- {:else if currentStep === 5}
         <div
           class="conclusion-section fade-in"
           style="margin-top: 0; padding-top: 0; border-top: none; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;"
@@ -232,7 +242,6 @@
           </a>
         </div> -->
       {/if}
-
     </div>
   </div>
 </div>
@@ -361,8 +370,6 @@
     }
   }
 
-
-
   .modal-body {
     padding: 0.8rem;
     display: flex;
@@ -391,8 +398,6 @@
     text-align: center;
     margin-bottom: 0;
   }
-
-
 
   @keyframes pulse {
     0%,
@@ -505,7 +510,7 @@
     justify-content: center;
     width: 100%;
   }
-  
+
   .pulse-text {
     font-size: 0.95rem;
     font-weight: 800;
@@ -514,13 +519,15 @@
     letter-spacing: 1.5px;
     animation: pulse 1.5s infinite;
     text-align: center;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8), 0 0 10px rgba(0, 0, 0, 0.5);
+    text-shadow:
+      0 2px 4px rgba(0, 0, 0, 0.8),
+      0 0 10px rgba(0, 0, 0, 0.5);
     background: rgba(0, 0, 0, 0.35);
     padding: 0.6rem 1.2rem;
     border-radius: 99px;
     backdrop-filter: blur(4px);
     border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   }
 
   .content-image {
@@ -531,7 +538,6 @@
     margin: 0.3rem 0;
     filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
   }
-
 
   .btn-youtube {
     display: flex;
@@ -547,18 +553,24 @@
     font-size: 0.95rem;
     text-transform: uppercase;
     text-decoration: none;
-    box-shadow: 0 4px 0 #991b1b, 0 8px 15px rgba(0, 0, 0, 0.2);
+    box-shadow:
+      0 4px 0 #991b1b,
+      0 8px 15px rgba(0, 0, 0, 0.2);
     transition: all 0.1s;
     width: 90%;
     max-width: 300px;
   }
   .btn-youtube:hover {
     transform: translateY(2px);
-    box-shadow: 0 2px 0 #991b1b, 0 4px 10px rgba(0, 0, 0, 0.2);
+    box-shadow:
+      0 2px 0 #991b1b,
+      0 4px 10px rgba(0, 0, 0, 0.2);
     background: #f87171;
   }
   .btn-youtube:active {
     transform: translateY(4px);
-    box-shadow: 0 0 0 #991b1b, 0 0 0 rgba(0, 0, 0, 0.2);
+    box-shadow:
+      0 0 0 #991b1b,
+      0 0 0 rgba(0, 0, 0, 0.2);
   }
 </style>
