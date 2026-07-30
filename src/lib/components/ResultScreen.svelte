@@ -37,9 +37,7 @@
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <div
   class="result-screen pop-in"
-  style="background-image: url('{isWin || currentStep === 4
-    ? winBg
-    : loseBg}');"
+  style="background-image: url('{isWin ? winBg : loseBg}');"
   on:click={nextStep}
   on:keydown={(e) => e.key === "Enter" && nextStep()}
 >

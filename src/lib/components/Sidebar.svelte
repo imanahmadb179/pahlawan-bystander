@@ -1,13 +1,14 @@
 <script>
   export let currentStage = 1;
   export let isNarrative = false;
-  
+
   const steps = [
-    { num: 1, title: 'Cek Respon', icon: '👤' },
-    { num: 2, title: 'Panggil Bantuan', icon: '📞' },
-    { num: 3, title: 'Cek Napas & Nadi', icon: '🫀' },
-    { num: 4, title: 'Bantuan Napas', icon: '🌬️' },
-    { num: 5, title: 'Gunakan AED', icon: '⚡' }
+    { num: 1, title: "Langkah 1", icon: "🛡️" },
+    { num: 2, title: "Langkah 2", icon: "👤" },
+    { num: 3, title: "Langkah 3", icon: "🫁" },
+    { num: 4, title: "Langkah 4", icon: "📞" },
+    { num: 5, title: "Langkah 5", icon: "🫀" },
+    { num: 6, title: "Langkah 6", icon: "⚡" },
   ];
 </script>
 
@@ -15,15 +16,20 @@
   <div class="sidebar-header">
     <div class="header-badge">BLS</div>
   </div>
-  
+
   <div class="sidebar-content">
     {#each steps as step}
-      <div class="step-item {currentStage === step.num && !isNarrative ? 'active' : ''} {currentStage > step.num ? 'completed' : ''}">
+      <div
+        class="step-item {currentStage === step.num && !isNarrative
+          ? 'active'
+          : ''} {currentStage > step.num ? 'completed' : ''}"
+      >
         <div class="step-icon">
           {step.icon}
         </div>
         <div class="step-text">
-          <span class="step-num">{step.num}.</span> {step.title}
+          <span class="step-num">{step.num}.</span>
+          {step.title}
         </div>
       </div>
     {/each}
@@ -36,7 +42,9 @@
     border: 4px solid var(--primary-blue);
     border-radius: 24px;
     width: 250px;
-    box-shadow: 0 8px 0 var(--primary-blue), 0 15px 20px rgba(0,0,0,0.15);
+    box-shadow:
+      0 8px 0 var(--primary-blue),
+      0 15px 20px rgba(0, 0, 0, 0.15);
     position: relative;
     margin-left: 1.5rem;
     display: flex;
@@ -112,7 +120,7 @@
     border-color: #166534;
     color: white;
   }
-  
+
   .step-item.completed {
     opacity: 0.7;
   }
